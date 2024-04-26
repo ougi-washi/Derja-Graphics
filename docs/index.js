@@ -1,38 +1,61 @@
-var vertexSource =
-`#version 100
+(function(){
+    "use strict";
+    var gl,
+        program,
+        startTime = Date.now(), // Start time for animation
+        vertexSource, // Declare as global variables
+        fragmentSource,
+        shadersLoaded = 0; // Track the number of loaded shaders
 
-attribute vec2 a_position;
-varying vec2 v_uv;
-        
-void main() {
-	gl_Position = vec4(a_position, 0.0, 1.0);
-	v_uv = (a_position + 1.0) / 2.0;
-}`
+    window.addEventListener("load", loadShaders, false);
 
-var fragmentSource = 
-`
-#version 100
-precision mediump float;
+    function loadShaders() {
+        console.log('Loading shaders');
+        var vertexXHR = new XMLHttpRequest();
+        vertexXHR.open('GET', 'shaders/index_vertex.glsl', true);
+        vertexXHR.onreadystatechange = function() {
+            if (vertexXHR.readyState === XMLHttpRequest.DONE) {
+                if (vertexXHR.status === 200) {
+                    vertexSource = vertexXHR.responseText;
+                    console.log('Vertex shader loaded successfully');
+                    shadersLoaded++;
+                    checkShadersLoaded();
+                } else {
+                    console.error('Failed to load vertex shader: ' + vertexXHR.status);
+                }
+            }
+        };
+        vertexXHR.send();
 
-varying vec2 v_uv;
+        var fragmentXHR = new XMLHttpRequest();
+        fragmentXHR.open('GET', 'shaders/index_fragment.glsl', true);
+        fragmentXHR.onreadystatechange = function() {
+            if (fragmentXHR.readyState === XMLHttpRequest.DONE) {
+                if (fragmentXHR.status === 200) {
+                    fragmentSource = fragmentXHR.responseText;
+                    console.log('Fragment shader loaded successfully');
+                    shadersLoaded++;
+                    checkShadersLoaded();
+                } else {
+                    console.error('Failed to load fragment shader: ' + fragmentXHR.status);
+                }
+            }
+        };
+        fragmentXHR.send();
+    }
 
-void main() {
-        gl_FragColor = vec4(v_uv, 0.34, 1.0); 
-}
-`
+    function checkShadersLoaded() {
+        if (shadersLoaded === 2) { // Both shaders are loaded
+            setupWebGL();
+        }
+    }
 
-
-;(function(){
-"use strict"
-window.addEventListener("load", setupWebGL, false);
-var gl,
-	program;
-function setupWebGL(evt) {
-	window.removeEventListener(evt.type, setupWebGL, false);
+    function setupWebGL() {
+        console.log('Setting up WebGL');
         if (!(gl = getRenderingContext()))
-        	return;
+            return;
 
-	var source = vertexSource;
+        var source = vertexSource;
         var vertexShader = gl.createShader(gl.VERTEX_SHADER);
         gl.shaderSource(vertexShader, source);
         gl.compileShader(vertexShader);
@@ -49,30 +72,27 @@ function setupWebGL(evt) {
         gl.deleteShader(vertexShader);
         gl.deleteShader(fragmentShader);
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        	var linkErrLog = gl.getProgramInfoLog(program);
-        	cleanup();
-        	document.querySelector("canvas").innerHTML =
+            var linkErrLog = gl.getProgramInfoLog(program);
+            cleanup();
+            document.querySelector("canvas").innerHTML =
                 "Shader program did not link successfully. "
                 + "Error log: " + linkErrLog;
-                return;
+            return;
         }
 
         initializeAttributes();
 
-        gl.useProgram(program);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); // Draw a rectangle
+        render(); // Start the rendering loop
+    }
 
-        cleanup();
-}
+    var buffer;
 
-var buffer;
-
-function initializeAttributes() {
+    function initializeAttributes() {
         var vertices = new Float32Array([
-        -1.0, -1.0,  // bottom-left corner
-        1.0, -1.0,   // bottom-right corner
-        -1.0, 1.0,   // top-left corner
-        1.0, 1.0     // top-right corner
+            -1.0, -1.0,  // bottom-left corner
+            1.0, -1.0,   // bottom-right corner
+            -1.0, 1.0,   // top-left corner
+            1.0, 1.0     // top-right corner
         ]);
 
         buffer = gl.createBuffer();
@@ -82,34 +102,41 @@ function initializeAttributes() {
         var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
         gl.enableVertexAttribArray(positionAttributeLocation);
         gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
-}
+    }
 
-function cleanup() {
-	gl.useProgram(null);
-	if (buffer){
-		gl.deleteBuffer(buffer);
-	}
-	if (program){ 
-  		gl.deleteProgram(program);
+    function cleanup() {
+        gl.useProgram(null);
+        if (buffer) {
+            gl.deleteBuffer(buffer);
+        }
+        if (program) {
+            gl.deleteProgram(program);
+        }
+    }
 
-	}
-}
+    function getRenderingContext() {
+        var canvas = document.querySelector("canvas");
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        if (!gl) {
+            var paragraph = document.querySelector("p");
+            paragraph.innerHTML = "Failed to get WebGL context."
+                + "Your browser or device may not support WebGL.";
+            return null;
+        }
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        return gl;
+    }
 
-function getRenderingContext() {
-	var canvas = document.querySelector("canvas");
-	canvas.width = canvas.clientWidth;
-  	canvas.height = canvas.clientHeight;
-  	var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-  	if (!gl) {
-    		var paragraph = document.querySelector("p");
-    		paragraph.innerHTML = "Failed to get WebGL context."
-      		+ "Your browser or device may not support WebGL.";
-    		return null;
-	}
-  	gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-  	gl.clearColor(0.0, 0.0, 0.0, 1.0);
-  	gl.clear(gl.COLOR_BUFFER_BIT);
-  	return gl;
-}
+    function render() {
+        var currentTime = (Date.now() - startTime) / 1000.0; // Time in seconds
+        var timeUniformLocation = gl.getUniformLocation(program, "u_time");
+        gl.uniform1f(timeUniformLocation, currentTime);
+        gl.useProgram(program);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(render);
+    }
 })();
-
