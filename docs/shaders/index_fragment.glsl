@@ -335,20 +335,26 @@ vec3 getNormal(vec3 p)
     return normalize(vec3(map(p + e.xyy), map(p + e.yxy), map(p + e.yyx)));    
 }
 
-float getLight(vec3 p)
+vec3 getLight(vec3 p)
 {
-	vec2 uv = (v_uv - 0.5) * (u_resolution.x / u_resolution.y);
+	vec2 uv = v_uv - 0.5;
+    uv.x *= u_resolution.x / u_resolution.y;
+
 	vec2 mousePos = vec2(u_mouse.x / u_resolution.x, u_mouse.y / (u_resolution.y)) - .5;
 	mousePos.y *= -1.;
     vec3 lightPos = vec3(mousePos.x, mousePos.y, -1.2);
     vec3 lightDir = normalize(p - lightPos);
-    return -dot(getNormal(p), lightDir);    
+
+	vec3 base = -dot(getNormal(p), lightDir) * vec3(1.);
+	vec3 rimlight = smoothstep(0.99, 1.01, base) * vec3(.8, 0.5, .9);
+    return base + rimlight;
 }
 
 void main() {
 
-	vec2 uv = (v_uv - 0.5) * (u_resolution.x / u_resolution.y);
-	
+	vec2 uv = v_uv - 0.5;
+    uv.x *= u_resolution.x / u_resolution.y;
+
     float focalDist = 0.6;
     vec3 ro = vec3(0., 0., -1.6);
     vec3 rd = vec3(uv.x, uv.y, focalDist);   
@@ -360,7 +366,7 @@ void main() {
     {
         vec3 pHit = ro + rd * dist;
         col = vec3(0.5, 0.4, .9);
-        col *= vec3(getLight(pHit)) + vec3(0.1);
+        col *= getLight(pHit) + vec3(0.01);
     }    
 
 	gl_FragColor = vec4(col.x, col.y, col.z, 1.0);
