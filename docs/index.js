@@ -7,9 +7,10 @@
         fragmentSource,
         shadersLoaded = 0; // Track the number of loaded shaders
 
-    window.addEventListener("load", loadShaders, false);
+    window.addEventListener("load", loadShaderFiles, false);
+    window.addEventListener("resize", handleResize, false);
 
-    function loadShaders() {
+    function loadShaderFiles() {
         console.log('Loading shaders');
         var vertexXHR = new XMLHttpRequest();
         vertexXHR.open('GET', 'shaders/index_vertex.glsl', true);
@@ -55,14 +56,24 @@
         if (!(gl = getRenderingContext()))
             return;
 
-        var source = vertexSource;
         var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-        gl.shaderSource(vertexShader, source);
+        gl.shaderSource(vertexShader, vertexSource);
         gl.compileShader(vertexShader);
-        source = fragmentSource;
+        if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+            var compileErrLog = gl.getShaderInfoLog(vertexShader);
+            console.error('Vertex shader compilation error: ' + compileErrLog);
+            return;
+        }
+
         var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-        gl.shaderSource(fragmentShader, source);
+        gl.shaderSource(fragmentShader, fragmentSource);
         gl.compileShader(fragmentShader);
+        if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+            var compileErrLog = gl.getShaderInfoLog(fragmentShader);
+            console.error('Fragment shader compilation error: ' + compileErrLog);
+            return;
+        }
+
         program = gl.createProgram();
         gl.attachShader(program, vertexShader);
         gl.attachShader(program, fragmentShader);
@@ -81,8 +92,31 @@
         }
 
         initializeAttributes();
+        OnDoneSetupWebGL();
 
         render(); // Start the rendering loop
+    }
+    
+    function OnDoneSetupWebGL()
+    {
+        document.addEventListener('mousemove', function(event) {
+            var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
+            gl.uniform2f(mouseUniformLocation, event.clientX, event.clientY);
+        });
+    }
+
+    function handleResize() {
+        console.log('Window resized');
+        // Update canvas size to match window size
+        var canvas = document.querySelector("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Update viewport
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        // Re-render the scene
+        render();
     }
 
     var buffer;
@@ -132,8 +166,12 @@
     }
 
     function render() {
+        // update uniforms
         var currentTime = (Date.now() - startTime) / 1000.0; // Time in seconds
         var timeUniformLocation = gl.getUniformLocation(program, "u_time");
+        var resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
+        gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+
         gl.uniform1f(timeUniformLocation, currentTime);
         gl.useProgram(program);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);

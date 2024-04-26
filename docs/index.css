@@ -1,14 +1,29 @@
 body, html {
-	margin: 0;
-	padding: 0;
+        margin: 0;
+        padding: 0;
         height: 100%;
         overflow: hidden; /* Hide scrollbar */
-}
-canvas {
+    }
+    
+    /* Container for text */
+    .container {
+        position: relative;
+        height: 100%;
+        z-index: 1; /* Ensure text appears above canvas */
+    }
+    
+    /* Background canvas */
+    canvas {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1; /* Push it behind other content */
-}
+        z-index: 0; /* Push canvas behind text */
+        pointer-events: none; /* Allow mouse events to pass through */
+    }
+    
+    /* Make links clickable */
+    .container a {
+        pointer-events: auto; /* Re-enable mouse events for links */
+    }
