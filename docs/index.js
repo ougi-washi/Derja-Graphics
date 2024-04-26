@@ -1,3 +1,27 @@
+var vertexSource =
+`#version 100
+
+attribute vec2 a_position;
+varying vec2 v_uv;
+        
+void main() {
+	gl_Position = vec4(a_position, 0.0, 1.0);
+	v_uv = (a_position + 1.0) / 2.0;
+}`
+
+var fragmentSource = 
+`
+#version 100
+precision mediump float;
+
+varying vec2 v_uv;
+
+void main() {
+        gl_FragColor = vec4(v_uv, 0.34, 1.0); 
+}
+`
+
+
 ;(function(){
 "use strict"
 window.addEventListener("load", setupWebGL, false);
@@ -8,11 +32,11 @@ function setupWebGL(evt) {
         if (!(gl = getRenderingContext()))
         	return;
 
-	var source = document.querySelector("#vertex-shader").innerHTML;
+	var source = vertexSource;
         var vertexShader = gl.createShader(gl.VERTEX_SHADER);
         gl.shaderSource(vertexShader, source);
         gl.compileShader(vertexShader);
-        source = document.querySelector("#fragment-shader").innerHTML;
+        source = fragmentSource;
         var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
         gl.shaderSource(fragmentShader, source);
         gl.compileShader(fragmentShader);
@@ -88,3 +112,4 @@ function getRenderingContext() {
   	return gl;
 }
 })();
+
