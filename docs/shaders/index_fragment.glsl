@@ -306,9 +306,12 @@ float fBm(in vec2 p)
 
 float map(vec3 p)
 {
-	float noise = fBm(sin(u_time * .6) + (-cos(u_time * .4)) * v_uv * 3.);
-	float mainSphereMask = op_repetition_3d_1param(sd_sphere, p, .6 , .6, noise + .3);
-
+	float noise = fBm(sin(u_time * .6) + (-cos(u_time * .4)) * v_uv * 5.);
+	// float mainSphereMask = op_repetition_3d_1param(sd_sphere, p, .6 , .6, noise + .3);
+    
+    // p.xy = fract((p.xy) * 8.) - .5;
+    p.xy = mod(p.xy , 0.07);
+    float mainSphereMask = sd_sphere(p, noise + .2);
 	return mainSphereMask;
 }
 
@@ -365,7 +368,7 @@ void main() {
     if (dist < MAX_DIST)
     {
         vec3 pHit = ro + rd * dist;
-        col = vec3(0.5, 0.4, .9);
+        col = vec3(.1, 0.4, .9);
         col *= getLight(pHit) + vec3(0.01);
     }    
 
