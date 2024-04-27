@@ -1,7 +1,7 @@
 #version 100
 precision mediump float;
 
-#define MAX_STEPS 40
+#define MAX_STEPS 20
 #define MAX_DIST 500.
 #define MIN_DIST 0.01
 
@@ -9,7 +9,7 @@ varying vec2 v_uv;
 uniform vec2 u_resolution;
 uniform float u_time; 
 uniform vec2 u_mouse;
-
+uniform sampler2D u_perlin_noise;
 
 // SDF LIBRARY, REFS: Inigo Quilez and https://github.com/ougi-washi/Abstract-Shader-Engine
 float length2( vec3 p ) { p=p*p; return sqrt( p.x+p.y+p.z); }
@@ -302,16 +302,57 @@ float fBm(in vec2 p)
     return gradN2D(p)*.57 + gradN2D(p*2.)*.28 + gradN2D(p*4.)*.15;
 }
 
+vec2 sim2d(
+  in vec2 p,
+  in float s)
+{
+   vec2 ret=p;
+   ret=p+s/2.0;
+   ret=fract(ret/s)*s-s/2.0;
+   return ret;
+}
+
+vec2 getNormalizedUV()
+{
+    vec2 uv = v_uv - 0.5;
+    uv.x *= u_resolution.x / u_resolution.y;
+    return uv;
+}
+
+vec2 getMousePos()
+{
+    vec2 mousePos = vec2(u_mouse.x / u_resolution.x, u_mouse.y / (u_resolution.y)) - .5;
+	mousePos.y *= -1.;
+    return mousePos;
+}
+
 // SCENE
+
+struct LightData
+{
+    vec3 baseColor;
+    vec3 rimLight;
+    vec3 shine;
+};
+
+float getMouseMask()
+{
+    return 1. - smoothstep(.1, .5, distance(getMousePos(), getNormalizedUV()));
+}
 
 float map(vec3 p)
 {
-	float noise = fBm(sin(u_time * .6) + (-cos(u_time * .4)) * v_uv * 5.);
-	// float mainSphereMask = op_repetition_3d_1param(sd_sphere, p, .6 , .6, noise + .3);
+    //float noise_tex = texture2D(u_perlin_noise, (u_time * .02 + getNormalizedUV() * .5 + .5) * .1).x;
+    float rotation_speed = .75 * u_time + getMouseMask();
+    p.xy = sim2d(p.xy, .3);
+    mat3 rotation_x = op_rotate_x(rotation_speed);
+    mat3 rotation_y = op_rotate_y(rotation_speed);
+    mat3 rotation_z = op_rotate_z(rotation_speed);
+    p = p * rotation_x;
+    p = p * rotation_y;
+    p = p * rotation_z;
+    float mainSphereMask = sd_octahedron_exact(p, .1);
     
-    // p.xy = fract((p.xy) * 8.) - .5;
-    p.xy = mod(p.xy , 0.07);
-    float mainSphereMask = sd_sphere(p, noise + .2);
 	return mainSphereMask;
 }
 
@@ -338,28 +379,26 @@ vec3 getNormal(vec3 p)
     return normalize(vec3(map(p + e.xyy), map(p + e.yxy), map(p + e.yyx)));    
 }
 
-vec3 getLight(vec3 p)
+LightData getLight(vec3 p)
 {
-	vec2 uv = v_uv - 0.5;
-    uv.x *= u_resolution.x / u_resolution.y;
-
-	vec2 mousePos = vec2(u_mouse.x / u_resolution.x, u_mouse.y / (u_resolution.y)) - .5;
-	mousePos.y *= -1.;
+	vec2 uv = getNormalizedUV();
+    vec2 mousePos = getMousePos() * 2.5;
     vec3 lightPos = vec3(mousePos.x, mousePos.y, -1.2);
     vec3 lightDir = normalize(p - lightPos);
 
 	vec3 base = -dot(getNormal(p), lightDir) * vec3(1.);
-	vec3 rimlight = smoothstep(0.99, 1.01, base) * vec3(.8, 0.5, .9);
-    return base + rimlight;
+	vec3 rimLight = smoothstep(0.99, 1.01, base) * vec3(.8, 0.5, .9) * 5.;
+    vec3 shine = vec3(pow(rimLight.x * 10., 2.), pow(rimLight.y * 10., 2.), pow(rimLight.z * 10., 2.));
+
+    return LightData(base, rimLight, shine);
 }
 
 void main() {
 
-	vec2 uv = v_uv - 0.5;
-    uv.x *= u_resolution.x / u_resolution.y;
+	vec2 uv = getNormalizedUV();
 
     float focalDist = 0.6;
-    vec3 ro = vec3(0., 0., -1.6);
+    vec3 ro = vec3(0., 0., -1.1);
     vec3 rd = vec3(uv.x, uv.y, focalDist);   
     
     vec3 col = vec3(0.);
@@ -368,9 +407,14 @@ void main() {
     if (dist < MAX_DIST)
     {
         vec3 pHit = ro + rd * dist;
-        col = vec3(.1, 0.4, .9);
-        col *= getLight(pHit) + vec3(0.01);
+        col = vec3(.1, .0, .5);
+        LightData lightData = getLight(pHit);
+        float mouseMask = getMouseMask();
+        vec3 mainLightColor = lightData.baseColor + lightData.rimLight ; //without shine
+        col *= mix(mainLightColor, mainLightColor + lightData.shine, mouseMask) + mix(vec3(0.1), vec3(.6), mouseMask);
+    }
+    else{
+        col = vec3(0., 0., 0.);
     }    
-
 	gl_FragColor = vec4(col.x, col.y, col.z, 1.0);
 }

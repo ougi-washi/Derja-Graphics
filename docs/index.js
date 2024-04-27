@@ -1,3 +1,5 @@
+import * as webgl_lib from './libs/webgl.js';
+
 (function(){
     "use strict";
     var gl,
@@ -103,6 +105,8 @@
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
             gl.uniform2f(mouseUniformLocation, event.clientX, event.clientY);
         });
+
+        webgl_lib.createTexture(gl, program, './resources/textures/noises/T_PerlinNoise.PNG', 0, 'u_perlin_noise');
     }
 
     function handleResize() {
