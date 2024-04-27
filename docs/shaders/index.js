@@ -1,4 +1,4 @@
-import * as webgl_lib from './libs/webgl.js';
+import * as webgl_lib from '../libs/webgl.js';
 
 (function(){
     "use strict";
@@ -15,7 +15,7 @@ import * as webgl_lib from './libs/webgl.js';
     function loadShaderFiles() {
         console.log('Loading shaders');
         var vertexXHR = new XMLHttpRequest();
-        vertexXHR.open('GET', 'shaders/index_vertex.glsl', true);
+        vertexXHR.open('GET', new URL('./index_vertex.glsl', import.meta.url), true);
         vertexXHR.onreadystatechange = function() {
             if (vertexXHR.readyState === XMLHttpRequest.DONE) {
                 if (vertexXHR.status === 200) {
@@ -31,7 +31,7 @@ import * as webgl_lib from './libs/webgl.js';
         vertexXHR.send();
 
         var fragmentXHR = new XMLHttpRequest();
-        fragmentXHR.open('GET', 'shaders/index_fragment.glsl', true);
+        fragmentXHR.open('GET', new URL('./index_fragment.glsl', import.meta.url), true);
         fragmentXHR.onreadystatechange = function() {
             if (fragmentXHR.readyState === XMLHttpRequest.DONE) {
                 if (fragmentXHR.status === 200) {

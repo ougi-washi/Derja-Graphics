@@ -4,10 +4,57 @@ html {
     padding: 0;
 }
 
+header {
+    background-color: #131016de;
+    padding: 5px; 
+    border-radius: 5px;
+    position: fixed; 
+    top: 0; 
+    width: 20%; 
+    z-index: 5; 
+}
+
+.header {
+    font-size: .9em;
+    line-height: .85;
+    color: #666;
+}
+
+nav ul {
+    list-style-type: none; 
+    padding-left: 30px; 
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px; 
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: #fff; 
+    text-decoration: none; 
+}
+
+nav ul li a:hover {
+    text-decoration: underline; 
+}
+
+::-webkit-scrollbar {
+    width: 0;  /* For Chrome, Safari, and Opera */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;  /* For Chrome, Safari, and Opera */
+}
+
 .container {
     margin: 0 auto;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1000px;
     position: relative;
     font-family: Arial, sans-serif;
     height: 100%;
@@ -18,6 +65,17 @@ html {
     font-size: 2.5em;
     color: #a5bed2;
     text-align: center;
+}
+
+.container h2 {
+    font-size: 1.3em;
+    color: #a5bed2;
+    text-align: center;
+}
+
+.container h3 {
+    font-size: 1.2em;
+    color: #a5bed2;
 }
 
 .container p {
