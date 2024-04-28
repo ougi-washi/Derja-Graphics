@@ -1,3 +1,5 @@
+// Derja Graphics - Jed Fakhfekh - https://github.com/ougi-washi
+
 #version 100
 
 attribute vec2 a_position;

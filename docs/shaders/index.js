@@ -1,4 +1,6 @@
-import * as webgl_lib from '../libs/webgl.js';
+// Derja Graphics - Jed Fakhfekh - https://github.com/ougi-washi
+ 
+ import * as webgl_lib from '../libs/webgl.js';
 
 (function(){
     "use strict";
