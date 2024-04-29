@@ -1,4 +1,4 @@
- <!-- Derja Graphics - Jed Fakhfekh - https://github.com/ougi-washi -->
+<!-- Derja Graphics - Jed Fakhfekh - https://github.com/ougi-washi -->
 
 <!DOCTYPE html>
 <html>
@@ -19,19 +19,18 @@
 				</ul>
 			</nav>
 		</header>
-	<h1>Shaders</h1>
+		<h1>Shaders</h1>
 		<div class="section">
 			<h2>Chnouma el shaders?</h2>
 			<p>
-				Fi'l Ɛada, ay code normal yetlansa Ɛal <a href="https://en.wikipedia.org/wiki/Central_processing_unit"
+				Fi el Ɛada, ay code normal yetlansa Ɛal <a href="https://en.wikipedia.org/wiki/Central_processing_unit"
 					target="_blank">CPU</a> (el dmegh principal mteƐ el PC).<br>
-				El <a href="https://en.wikipedia.org/wiki/Shader" target="_blank">Shader</a> houwa code ye5dem Ɛal <a
+				El <a href="https://en.wikipedia.org/wiki/Shader" target="_blank">Shader</a> houwa code yekhdem Ɛal <a
 					href="https://en.wikipedia.org/wiki/Graphics_processing_unit" target="_blank">GPU</a>.<br>
 				Binnesba lel specialité mteƐ l'GPU heya ano y'executi barcha des instructions <a
 					href="https://en.wikipedia.org/wiki/Parallel_computing" target="_blank">fard đarba</a>.<br>
-				Par contre el CPU y'executi des instructions complexes akthar w asƐab, ama limité fel nombre Ɛla 5ater
-				fih
-				a9al cores.
+				Par contre el CPU y'executi des instructions complexes akthar w asƐab, ama limité fel nombre Ɛla khater
+				fih aqal cores.
 			</p>
 
 		</div>
@@ -39,7 +38,7 @@
 		<div class="section">
 			<h2>Win nestaƐmlou el shaders?</h2>
 			<p>
-				Generalement, el shaders mostaƐmlin win nest7a9ou n'processiw barcha des données(data) fard wa9t.<br>
+				Generalement, el shaders mostaƐmlin win nestħaqou n'processiw barcha des données(data) fard waqt.<br>
 				Mathalan:<br>
 				- <a href="https://en.wikipedia.org/wiki/Computer_graphics" target="_blank">Computer Graphics</a>(Games,
 				Movies,
@@ -51,10 +50,13 @@
 		<div class="section">
 			<h2>Chnouma anweƐ el Shaders?</h2>
 			<p>
-				Fama barcha anweƐ mteƐ shaders, 7asb el istaƐmel.<br>
-				- <a href="https://en.wikipedia.org/wiki/Shader#Pixel_shaders" target="_blank">Pixel (wala Fragment) Shader</a>: execution Ɛla kol pixela Ɛal écran.<br>
-				- <a href="https://en.wikipedia.org/wiki/Shader#Vertex_shaders" target="_blank">Vertex Shader</a>: execution Ɛla kol point fi objet 3D.<br>
-				- <a href="https://en.wikipedia.org/wiki/Shader#Compute_shaders" target="_blank">Compute Shader</a>: ye7seb barcha data 7asb el besoin.<br>
+				Fama barcha anweƐ mteƐ shaders, ħasb el istaƐmel.<br>
+				- <a href="https://en.wikipedia.org/wiki/Shader#Pixel_shaders" target="_blank">Pixel (wala Fragment)
+					Shader</a>: execution Ɛla kol pixela Ɛal écran.<br>
+				- <a href="https://en.wikipedia.org/wiki/Shader#Vertex_shaders" target="_blank">Vertex Shader</a>:
+				execution Ɛla kol point fi objet 3D.<br>
+				- <a href="https://en.wikipedia.org/wiki/Shader#Compute_shaders" target="_blank">Compute Shader</a>:
+				yeħseb barcha data ħasb el besoin.<br>
 			</p>
 		</div>
 		<div class="section">
@@ -64,43 +66,64 @@
 				Ach'har languages mteƐ shaders houma: <a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language"
 					target="_blank">GLSL</a> w <a href="https://en.wikipedia.org/wiki/High-Level_Shader_Language"
 					target="_blank">HLSL</a> w mayebƐedch Ɛal C.<br>
-				Innejmou nestaƐmlou site kima <a href="https://www.shadertoy.com/" target="_blank">ShaderToy</a> bech n'testiw el pixel/fragment shaders (eli y't'executew Ɛla kol pixela).
+				Innejmou nestaƐmlou site kima <a href="https://www.shadertoy.com/" target="_blank">ShaderToy</a> bech
+				n'testiw el pixel/fragment shaders (eli y't'executew Ɛla kol pixela).
 			<div id="glsl-code" class="language-glsl">
 				Example:<br>
-				<pre><code>fragColor = vec4(0.5, .1, .8, .0);</code></pre>
+				<pre><code>fragColor = vec4(0.5, 0.1, 0.8, 0.0);</code></pre>
 				<iframe width="320" height="240" frameborder="0"
 					src="https://www.shadertoy.com/embed/Mf3SzS?gui=false&t=10&paused=true&muted=false"></iframe>
-				Kima tchouf, fel cas heđa, Ɛand'na code simple y7awel el pixelét mauve.<br>
-				El execution bech tsir Ɛla kol pixela/fragment.<br>
-				Deja kima tle7đou, el color variable essemha <code>fragColor</code>(vec4: fiha 4 valeurs):
-				- R: Red<br>
-				- G: Green<br>
-				- B: Blue<br>
-				- A: Alpha (généralement mostamla lel transparency/opacity, ama moch fel cas heđa)
 			</div>
 			</p>
 			<p>
-				Bech ennajmou nsawrou 7weyij, lezem na5tarou el position.
-				Ɛanna el possibilité bech naƐrfou el position mteƐ kol pixela, b'esteƐmèl l'<a href="https://en.wikipedia.org/wiki/UV_mapping", target="_blank">UVs</a>,
-				eli houma el coordonnées mteƐ el pixela fel ecran.
-				<div id="glsl-code" class="language-glsl">
-					Example:<br>
-					<pre><code>vec2 normalizedCoord = fragCoord / iResolution.xy;<br>fragColor = vec4(normalizedCoord, 0., 1.);</code></pre>
-					<iframe width="320" height="240" frameborder="0"
-						src="https://www.shadertoy.com/embed/XcdSzs?gui=false&t=10&paused=true&muted=false"></iframe>
-					Fel cas heđa, na9smou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1.
-					Yomken le7eđt elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs 5ater el écran mteƐna 2D, donc pixelét Ɛla <code>X</code> w pixelét Ɛla <code>Y</code> ).
-					Ki nwarriw el resultat, tchoufou les couleurs hedhouma.<br><br>
-					Y9oul el 9ayel, kifeh jew hal couleurat?<br>
-					El resultat hedha Ɛibara Ɛla 2 degradé(gradient) b couleurat différents.<br> 
-					Houni, el couleurat houma red w green, w yet9ablou fel coin ywalliw yellow.
-					<pre><code>float uvX = fragCoord.x / iResolution.x;<br>fragColor = vec4(uvX, 0., .0, .0);</code></pre>
-					<iframe width="160" height="120" frameborder="0"
-						src="https://www.shadertoy.com/embed/lfcSWS?gui=false&t=10&paused=true&muted=false"></iframe>
-					<pre><code>float uvX = fragCoord.x / iResolution.x;<br>fragColor = vec4(uvX, 0., .0, .0);</code></pre>
-					<iframe width="160" height="120" frameborder="0"
-						src="https://www.shadertoy.com/embed/lc3XWS?gui=false&t=10&paused=true&muted=false"></iframe>
-				</div>
+
+				Kima tchouf, fel cas heđa, Ɛand'na code simple yħawel el pixelét mauve.<br>
+				El execution bech tsir Ɛla kol pixela/fragment.<br>
+				Deja kima tleħđou, el color variable essemha <code>fragColor</code>(vec4: fiha 4 valeurat):<br>
+				- R: Red 	(fel example heđa = 0.5 Ɛla 1.0)<br>
+				- G: Green 	(fel example heđa = 0.1 Ɛla 1.0)<br>
+				- B: Blue	(fel example heđa = 0.8 Ɛla 1.0)<br>
+				- A: Alpha (généralement lel transparency/opacity, ama moch mostaƐmla houni)<br>
+				Ken nħottou el valeurat el kol 1.0; yjina loun abyađ.<br><br>
+				Bech ennajmou nsawrou achkél, lezem nakhtarou el position.<br>
+				Ɛanna el possibilité bech naƐrfou el position mteƐ kol pixela, b'esteƐmèl l'<a
+					href="https://en.wikipedia.org/wiki/UV_mapping" , target="_blank">UVs</a>,
+				eli houma el coordonnées mteƐ el pixela fel ecran.<br>
+			<div id="glsl-code" class="language-glsl">
+				Example:<br>
+				<pre><code>vec2 normalizedCoord = fragCoord / iResolution.xy;<br>fragColor = vec4(normalizedCoord, 0.0, 1.0);</code></pre>
+				<iframe width="320" height="240" frameborder="0"
+					src="https://www.shadertoy.com/embed/XcdSzs?gui=false&t=10&paused=true&muted=false"></iframe>
+			</div>
+			<p>
+				Fel cas heđa, naqsmou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1.
+				Yomken leħeđt elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs 5ater el écran
+				mteƐna 2D, donc pixelét Ɛla <code>X</code> w pixelét Ɛla <code>Y</code> ).
+				Ki nwarriw el resultat, tchoufou les couleurs hedhouma.<br><br>
+				Yqoul el qayel, kifeh jew hal couleurat?<br>
+				El resultat hedha Ɛibara Ɛla 2 degradé(gradient) b couleurat différents.<br>
+				Houni, el couleurat houma red w green, w yetqablou fel coin ywalliw yellow.<br><br>
+			</p>
+			<div id="glsl-code" class="language-glsl">
+				Red:
+				<pre><code>float uvX = fragCoord.x / iResolution.x;<br>fragColor = vec4(uvX, 0.0, 0.0, 0.0);</code></pre>
+				<iframe width="240" height="180" frameborder="0"
+					src="https://www.shadertoy.com/embed/lfcSWS?gui=false&t=10&paused=true&muted=false"></iframe>
+				Green:
+				<pre><code>float uvX = fragCoord.y / iResolution.y;<br>fragColor = vec4(uvY, 0.0, 0.0, 0.0);</code></pre>
+				<iframe width="240" height="180" frameborder="0"
+					src="https://www.shadertoy.com/embed/lc3XWS?gui=false&t=10&paused=true&muted=false"></iframe>
+			</div>
+			</p>
+			<p>
+				Puisque Ɛandna el position mteƐ kol pixela, ennajmou nsawrou el fourma eli nħebbou Ɛliha.
+				Par example, bech nsawrou circle, nest7a9ou nqarnou el distance ma bin el circle w position el pixela.
+			<div id="glsl-code" class="language-glsl">
+				Example:
+				<pre><code>vec2 normalizedCoord = fragCoord / iResolution.xy;<br>float circleMask = distance(normalizedCoord, vec2(0.5, 0.5));<br>fragColor = vec4(circleMask, 0.0, 0.0, 0.0);</code></pre>
+				<iframe width="320" height="240" frameborder="0"
+				src="https://www.shadertoy.com/embed/4cdSWS?gui=false&t=10&paused=true&muted=false"></iframe>
+			</div>
 			</p>
 		</div>
 	</div>
