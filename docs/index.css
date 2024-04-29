@@ -96,14 +96,6 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-#glsl-code {
-    margin-top: 20px;
-    background-color: rgba(245, 245, 245, 0.3);
-    padding: 10px;
-    border-radius: 5px;
-    overflow-x: auto;
-}
-
 .section {
     background-color: rgba(15, 11, 11, 0.7);
     padding: 20px;
@@ -124,6 +116,18 @@ nav ul li a:hover {
     line-height: 1.5;
 }
 
+#glsl-code {
+    margin-top: 20px;
+    background-color: rgba(245, 245, 245, 0.3);
+    padding-right: 50px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    display: inline-block; /* Adjust size based on content */
+
+    overflow-x: auto;
+}
 
 #glsl-code pre {
     color: #ccc5a1;
@@ -141,7 +145,7 @@ code, #glsl-code code {
     margin-right: 5%;
     margin-left: 5%;
     text-align: center;
-    
+
     /* width: 60%;
     max-width: 80%; */
     border: none;
