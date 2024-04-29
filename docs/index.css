@@ -136,6 +136,11 @@ nav ul li a:hover {
 code, #glsl-code code {
     font-size: 1.3em;
     color: #b2ad8f;
+    font-weight: bold;
+}
+
+code comment {
+    color: #5aa85a;
 }
 
 #glsl-code iframe {
@@ -145,9 +150,6 @@ code, #glsl-code code {
     margin-right: 5%;
     margin-left: 5%;
     text-align: center;
-
-    /* width: 60%;
-    max-width: 80%; */
     border: none;
 }
 
