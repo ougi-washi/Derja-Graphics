@@ -8,12 +8,26 @@ html {
 
 header {
     background-color: #131016de;
-    padding: 5px; 
-    border-radius: 5px;
+    padding: 0.01em; 
+    border-radius: .2em;
     position: fixed; 
     top: 0; 
-    width: 250px; 
+    width: 13em; 
     z-index: 5; 
+}
+
+footer {
+    background-color: #131016de;
+    color: #383c3f;
+    padding: 0.1em;
+    border-radius: 0.2em;
+    text-align: center;
+    position: fixed;
+    font-size: .8em;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+    z-index: 5;
 }
 
 .header {
@@ -77,7 +91,12 @@ nav ul li a:hover {
 
 .container h3 {
     font-size: 1.2em;
-    color: #a5bed2;
+    color: #748695;
+}
+
+.container h4 {
+    font-size: 1.1em;
+    color: #637381;
 }
 
 .container p {
@@ -98,9 +117,12 @@ nav ul li a:hover {
 
 .section {
     background-color: rgba(15, 11, 11, 0.7);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 0.4em;
+    padding-bottom: 0.3em;
+    margin-bottom: .7em;
+    border-radius: .4em;
 }
 
 .section h2 {
@@ -116,14 +138,20 @@ nav ul li a:hover {
     line-height: 1.5;
 }
 
+.suggestion-section p {
+    font-size: 1.1em;
+    color: rgb(208, 183, 183);
+    line-height: 1.5;
+}
+
 #glsl-code {
-    margin-top: 20px;
+    margin-top: 0.0em;
     background-color: rgba(245, 245, 245, 0.3);
-    padding-right: 50px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-radius: 0.2em;
     display: inline-block; /* Adjust size based on content */
 
     overflow-x: auto;
@@ -143,12 +171,17 @@ code comment {
     color: #5aa85a;
 }
 
+.tabbed-content {
+    margin-left: 40px;
+}
+
 #glsl-code iframe {
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 5%;
     margin-left: 5%;
+    max-width: 80%;
     text-align: center;
     border: none;
 }
