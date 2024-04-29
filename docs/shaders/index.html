@@ -90,12 +90,17 @@
 						src="https://www.shadertoy.com/embed/XcdSzs?gui=false&t=10&paused=true&muted=false"></iframe>
 					Fel cas heđa, na9smou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1.
 					Yomken le7eđt elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs 5ater el écran mteƐna 2D, donc pixelét Ɛla <code>X</code> w pixelét Ɛla <code>Y</code> ).
-					Ki nwarriw el resultat, tchoufou les couleurs hedhouma.
+					Ki nwarriw el resultat, tchoufou les couleurs hedhouma.<br><br>
+					Y9oul el 9ayel, kifeh jew hal couleurat?<br>
+					El resultat hedha Ɛibara Ɛla 2 degradé(gradient) b couleurat différents.<br> 
+					Houni, el couleurat houma red w green, w yet9ablou fel coin ywalliw yellow.
+					<pre><code>float uvX = fragCoord.x / iResolution.x;<br>fragColor = vec4(uvX, 0., .0, .0);</code></pre>
+					<iframe width="160" height="120" frameborder="0"
+						src="https://www.shadertoy.com/embed/lfcSWS?gui=false&t=10&paused=true&muted=false"></iframe>
+					<pre><code>float uvX = fragCoord.x / iResolution.x;<br>fragColor = vec4(uvX, 0., .0, .0);</code></pre>
+					<iframe width="160" height="120" frameborder="0"
+						src="https://www.shadertoy.com/embed/lc3XWS?gui=false&t=10&paused=true&muted=false"></iframe>
 				</div>
-			</p>
-			<p>
-				Y9oul el 9ayel, kifeh jew hal couleurat?
-				
 			</p>
 		</div>
 	</div>
