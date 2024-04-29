@@ -30,15 +30,14 @@
 				Binnesba lel specialité mteƐ l'GPU heya ano y'executi barcha des instructions <a
 					href="https://en.wikipedia.org/wiki/Parallel_computing" target="_blank">fard đarba</a>.<br>
 				Par contre el CPU y'executi des instructions complexes akthar w asƐab, ama limité fel nombre Ɛla khater
-				fih aqal cores.
+				fih aq̈al cores.
 			</p>
-
 		</div>
 
 		<div class="section">
 			<h2>Win nestaƐmlou el shaders?</h2>
 			<p>
-				Generalement, el shaders mostaƐmlin win nestħaqou n'processiw barcha des données(data) fard waqt.<br>
+				Generalement, el shaders mostaƐmlin win nestħaq̈ou n'processiw barcha des données(data) fard waq̈t.<br>
 				Mathalan:<br>
 				- <a href="https://en.wikipedia.org/wiki/Computer_graphics" target="_blank">Computer Graphics</a>(Games,
 				Movies,
@@ -96,13 +95,13 @@
 					src="https://www.shadertoy.com/embed/XcdSzs?gui=false&t=10&paused=true&muted=false"></iframe>
 			</div>
 			<p>
-				Fel cas heđa, naqsmou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1.
+				Fel cas heđa, naq̈smou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1.
 				Yomken leħeđt elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs 5ater el écran
 				mteƐna 2D, donc pixelét Ɛla <code>X</code> w pixelét Ɛla <code>Y</code> ).
 				Ki nwarriw el resultat, tchoufou les couleurs hedhouma.<br><br>
-				Yqoul el qayel, kifeh jew hal couleurat?<br>
+				Yq̈oul el q̈ayel, kifeh jew hal couleurat?<br>
 				El resultat hedha Ɛibara Ɛla 2 degradé(gradient) b couleurat différents.<br>
-				Houni, el couleurat houma red w green, w yetqablou fel coin ywalliw yellow.<br><br>
+				Houni, el couleurat houma red w green, w yetq̈ablou fel coin ywalliw yellow.<br><br>
 			</p>
 			<div id="glsl-code" class="language-glsl">
 				Red:
@@ -116,8 +115,8 @@
 			</div>
 			</p>
 			<p>
-				Puisque Ɛandna el position mteƐ kol pixela, ennajmou nsawrou el fourma eli nħebbou Ɛliha.
-				Par example, bech nsawrou circle, nestħaqou nqarnou el distance ma bin el circle w position el pixela.
+				Puisq̈ue Ɛandna el position mteƐ kol pixela, ennajmou nsawrou el fourma eli nħebbou Ɛliha.
+				Par example, bech nsawrou circle, nestħaq̈ou nq̈arnou el distance ma bin el circle w position el pixela.
 			<div id="glsl-code" class="language-glsl">
 				Example:
 				<pre><code>vec2 normalizedCoord = fragCoord / iResolution.xy;<br>float circleMask = distance(normalizedCoord, vec2(0.5, 0.5));<br>fragColor = vec4(circleMask, 0.0, 0.0, 0.0);</code></pre>
