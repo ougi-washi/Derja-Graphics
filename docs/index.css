@@ -26,7 +26,7 @@ footer {
     font-size: .8em;
     bottom: 0;
     right: 0;
-    width: 20%;
+    width: 23.0em;
     z-index: 5;
 }
 
@@ -184,6 +184,18 @@ code comment {
     max-width: 80%;
     text-align: center;
     border: none;
+}
+
+.image-container {
+    width: 30em;
+    margin: 0 auto;
+}
+
+.image-container img {
+    display: block; 
+    width: 100%;
+    border-radius: .4em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 canvas {

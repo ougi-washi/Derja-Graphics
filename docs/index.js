@@ -1,6 +1,6 @@
 // Derja Graphics - Jed Fakhfekh - https://github.com/ougi-washi
  
- import * as webgl_lib from '../libs/webgl.js';
+ import * as webgl_lib from './libs/webgl.js';
 
 (function(){
     "use strict";
@@ -107,8 +107,7 @@
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
             gl.uniform2f(mouseUniformLocation, event.clientX, event.clientY);
         });
-
-        webgl_lib.createTexture(gl, program, './resources/textures/noises/T_PerlinNoise.PNG', 0, 'u_perlin_noise');
+        webgl_lib.createTexture(gl, program, new URL('./resources/textures/noises/T_PerlinNoise.PNG', import.meta.url), 0, 'u_perlin_noise');
     }
 
     function handleResize() {
