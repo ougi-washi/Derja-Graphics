@@ -23,8 +23,10 @@
 		<div class="section">
 			<h2>Rendering?</h2>
 			<p>
-				Ki tsawwer b'yeddek Ɛla warq̈a, tsawwer fourmèt, couleuràt, w tzid el details ħatta lin tokhrejlek taswira kemla.<br>
-				Heđa howa bidou f'el <a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)", target="_blank">Rendering(Computer-graphics)</a>,
+				Ki tsawwer b'yeddek Ɛla warq̈a, tsawwer fourmèt, couleuràt, w tzid el details ħatta lin tokhrejlek
+				taswira kemla.<br>
+				Heđa howa bidou f'el <a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)" ,
+					target="_blank">Rendering(Computer-graphics)</a>,
 				Ama fi Ɛouđ ma testaƐmel stylo, bech testaƐmel code.<br>
 				Donc, el rendering howa el creation mteƐ des images men des données 2D wala 3D b'el programmation.<br>
 				El resultat eli yokhrej yetsamma "render".<br>
@@ -34,8 +36,10 @@
 		<div class="section">
 			<h2>Kifech n'renderiw?</h2>
 			<p>
-				Generalement, nestaƐmlou programs eli ywafroulna el tools bech nkharjou renders. El tools ynajmou ikounou:<br>
-				- <a href="https://en.wikipedia.org/wiki/List_of_3D_rendering_software" target="_blank">Rendering Softwares</a>: 
+				Generalement, nestaƐmlou programs eli ywafroulna el tools bech nkharjou renders. El tools ynajmou
+				ikounou:<br>
+				- <a href="https://en.wikipedia.org/wiki/List_of_3D_rendering_software" target="_blank">Rendering
+					Softwares</a>:
 				MajƐoulin bech y'rendriew scenes w mostaƐmlin barcha fel aflèm, w el videoèt.<br>
 				- <a href="https://en.wikipedia.org/wiki/Game_engine" target="_blank">Game Engines</a>:
 				MajƐoulin bech yesnƐou video games ama Ɛand'hom zeda touls lel graphics (2D w 3D).<br><br>
@@ -45,45 +49,88 @@
 			</p>
 			<p>
 				1. N'placiew el fourmèt f'el scene mteƐna<br>
-				<div class="image-container">
-					<img src="./images/rendering_intro_001.png" alt="rendering_intro_001">
-				</div>
+			<div class="image-container">
+				<img src="./images/rendering_intro_001.png" alt="rendering_intro_001">
+			</div>
 			</p>
 			<p>
 				2. NaƐtiw el fourmèt alwèn (wela textures)<br>
-				<div class="image-container">
-					<img src="./images/rendering_intro_002.png" alt="rendering_intro_002">
-				</div>
+			<div class="image-container">
+				<img src="./images/rendering_intro_002.png" alt="rendering_intro_002">
+			</div>
 			</p>
 			<p>
-				3. Nzidou dhaw lel scene<br>
-				<div class="image-container">
-					<img src="./images/rendering_intro_003.png" alt="rendering_intro_003">
-				</div>
+				3. Nzidou el'đaw(lights) lel scene<br>
+			<div class="image-container">
+				<img src="./images/rendering_intro_003.png" alt="rendering_intro_003">
+			</div>
 			</p>
 			<p>
 				4. Nħasnou el resultat. Par example: nzidou e'đol(shadows)
-				<div class="image-container">
-					<img src="./images/rendering_intro_004.png" alt="rendering_intro_004">
-				</div>
+			<div class="image-container">
+				<img src="./images/rendering_intro_004.png" alt="rendering_intro_004">
+			</div>
 			</p>
 		</div>
 		<div class="section">
-			<h2>tođ'hor sƐiba w sehla fard waq̈t? moch mochkel</h2>
+			<h2>Seħr w chaƐwađa? moch mochkel, tabbaƐ mƐaya</h2>
 			<p>
-				Bech nsawrou el fourmèt 3D, lezem ykoun Ɛandhom poinèt w khtout yelq̈iw binèt el poinèt(edges).<br>
-				<div class="image-container">
-					<img src="./images/rendering_intro_wireframe_001.png" alt="rendering_intro_wireframe_001">
-				</div>
+				Bech nsawrou el fourmèt 3D, lezem ykoun Ɛandhom poinèt w khtout(edges) yelq̈iw binèt el poinèt(vertices).<br>
+			<div class="image-container">
+				<img src="./images/rendering_intro_wireframe_001.png" alt="rendering_intro_wireframe_001">
+			</div>
 			</p>
 			<p>
-				MbaƐd, naƐtiw lel fourma, couleur.<br>
-				El couleuràt y
-				<div class="image-container">
-					<img src="./images/rendering_intro_wireframe_002.png" alt="rendering_intro_wireframe_002">
-				</div>
+				MbaƐd, naƐtiw lel fourma couleur (nestaƐmlou ħaja essemha <a href="./shaders.html">Shaders</a>).<br>
+				El couleuràt ynajmou ikounou textures zeda.
+			<div class="image-container">
+				<img src="./images/rendering_intro_wireframe_002.png" alt="rendering_intro_wireframe_002">
+			</div>
+			</p>
+			<p>
+				Bech ngeddou el texture, yelzem nestaƐmlou ħaja essemha
+				<a href="https://en.wikipedia.org/wiki/UV_mapping" , target="_blank">UV mapping</a>.<br>
+				El UV howa Ɛibara Ɛla ghlef yet'ħat Ɛla l'objet bech ennajmou naƐrfou kifech n'positionniew el texture
+				fouq̈ou.<br>
+			<p>
+				Example 1: Cube
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_intro_UV_002.png" alt="rendering_intro_wireframe_002">
+			</div>
+			<p>
+				Example 2: Sphere
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_intro_UV_001.png" alt="rendering_intro_wireframe_002">
+			</div>
+			</p>
+			<p>
+				Mazel el'đaw(lights).<br>
+				Bennesba lel đaw, yelzem naƐrfou ħaja essemah "<a href="https://en.wikipedia.org/wiki/Normal_(geometry)"
+					, target="_blank">Normals</a>".
+				El normal heya el direction eli toghzer el barra mel objet.
+			<div class="image-container">
+				<img src="./images/rendering_intro_wireframe_003.png" alt="rendering_intro_wireframe_001">
+			</div>
+			</p>
+			<p>
+				Vertices(poinèt), edges(khtout) w normals(directionèt Ɛala bara):
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_intro_normals_001.png" alt="rendering_intro_wireframe_001">
+			</div>
+			<p>
+				Finalement nq̈arnou el normals b direction el đaw(light):
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_intro_normals_002.png" alt="rendering_intro_wireframe_001">
+			</div>
+			<p>
+
 			</p>
 		</div>
+
 		<div class="section">
 			<h2>Fin.</h2>
 			<p>
@@ -92,9 +139,9 @@
 		<div>
 			<p>
 				Eq̈tiraħét:
-				<a href="./3D.html">3D</a> | 
-				<a href="./shaders_intro.html">shaders - intro</a> | 
-				<a href="../index.html">Home</a> 
+				<a href="./3D.html">3D</a> |
+				<a href="./shaders_intro.html">shaders - intro</a> |
+				<a href="../index.html">Home</a>
 			</p>
 		</div>
 	</div>
@@ -104,4 +151,5 @@
 <footer>
 	Copyright 2024 - <a href="mailto:derjagraphics@gmail.com">derjagraphics@gmail.com</a><br>
 </footer>
+
 </html>
