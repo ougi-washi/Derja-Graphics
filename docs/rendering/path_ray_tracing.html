@@ -23,12 +23,12 @@
 		<div class="section">
 			<h2>Path(Ray) tracing?</h2>
 			<p>
-				"Path(Ray)-Tracing" houma zouz partiyét:<br>
+				"Path(Ray) tracing" houma zouz partiyét:<br>
 				1.a. "path": el thneyya mel camera lel objet<br> 
 				1.b. "ray": el rayon eli bech yemchi m'el camera l'el objet fi el'scene<br> 
 				2. "tracing": traçage mtaƐ el thneyya.<br>
 				Houni, el ray yq̈addem mel camera w ychouf chƐand'na f'el scene.<br>
-				Ken yelq̈a objet, ylawwén el pixela f'el écran b'couleur l'objet.<br>
+				Ken yelq̈a objet, ylawwén el pixela f'el écran b'couleur l'objet, w fel Ɛada fama rays Ɛla 9ad nombre el pixelét.<br>
 			</p>
 			<div class="image-container">
 				<img src="./images/rendering_ray_tracing_001.jpg" 
@@ -43,7 +43,7 @@
 			</p>
 		</div>
 		<div class="section">
-			<h2>Chnou el farq̈ bin Path tracing w Ray tracing</h2>
+			<h2>Chnou el farq̈ bin Path tracing w Ray tracing?</h2>
 			<p>
 				Houma el zouz yestaƐmlou nafs el technique, ama famma nuance.<br><br>
 
@@ -54,11 +54,96 @@
 				Example:<br>
 				- Visualization mtaƐ l'architecture (VRay, Corona...).<br>
 				- Aflèm (Blender Eevee, Octane Render...)<br>
-				<br>
-				"<a href="https://en.wikipedia.org/wiki/Ray_tracing_(graphics)" target="_blank">Ray tracing</a>" mostaƐmel akthar f'el real-time renders.<br>
-				"<a href="https://en.wikipedia.org/wiki/Real-time_computer_graphics" target="_blank">Real-time</a>" maƐneha lezem ykoun el render 60 fps wela akthar (kima el video games).<br>
-				<br>
+				Example path tracing (ħabbetelha 60 seconds b'RTX 4070):
 			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_pt_full.png" 
+				alt="rendering_ray_tracing_002_pt_full">
+			</div>
+			<p>
+				"<a href="https://en.wikipedia.org/wiki/Ray_tracing_(graphics)" target="_blank">Ray tracing</a>" mostaƐmel akthar f'el real-time renders.<br>
+				"<a href="https://en.wikipedia.org/wiki/Real-time_computer_graphics" target="_blank">Real-time</a>" maƐneha lezem ykoun el render 60 <a href="https://en.wikipedia.org/wiki/Frame_rate" target="_blank">fps</a>
+				 wela akthar (kima el video games).<br>
+				Example ray tracing (ħabbetelha 0.016 seconds b'RTX 4070):
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_rt_full.png" 
+				alt="rendering_ray_tracing_002_rt_full">
+			</div>
+			<p>
+				Kima tchoufou, el zouz fihom barcha des details w techniquèt kima:<br>
+				- <a href="https://en.wikipedia.org/wiki/Reflection_(computer_graphics)" target="_blank">Reflection</a> (el reflet Ɛal sphere eli bel ħdiid)<br>
+				- <a href="https://en.wikipedia.org/wiki/Global_illumination" target="_blank">Global illumination</a> (el loun mtaƐ les objets yetbaddel b couleur el ħiit)<br>
+				- <a href="https://en.wikipedia.org/wiki/Ambient_occlusion" target="_blank">Ambient occlusion</a> (el partiyét el ghamq̈iin fel coinèt)<br>
+				- etc.<br>
+				Ama el resultat yoq̈Ɛed moch kifkif.
+			</p>
+		</div>
+		<div class="section">
+			<h2>El farq̈ bin Path tracing w Ray tracing: Reflection</h2>
+			<p>
+				Nzoumiew Ɛal sphere el westaniyya w nchoufou bech nthabtou fel reflet.
+			</p>
+			<p>
+				Awel ħaja ennajmou nleħdhouha houni heya el "Reflection".<br>
+				El path tracing yekhou raħtou fel waq̈t bech ykharjelna aħsan resultat.<br>
+				Kima tchouf houni, el reflet mtaƐ el spheres wadhaħ w ħatta el <a href="https://en.wikipedia.org/wiki/Cornell_box" target="_blank">Cornell Boxes</a> eli maħtoutin bƐàd yetchefou f'el reflet.<br>
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_pt_reflection.png" 
+				alt="rendering_ray_tracing_002_pt_reflection">
+			</div>
+			<p>
+				Par contre el resultat mtaƐ el ray tracing mahoch précis, w'el dhol mtaƐ el spheres eli 3la jnab dekhil baƐdhou.<br>
+				Zid zyeda el resolution mtaƐ el reflection tayħa, w'el taswira flou chwayya.<br>
+				Houwa sħiħ, famma barcha settings(parameters) ennajmou nbadlouhom bech nħasnou el qualité, ama sƐib bech toq̈reb m'el resultat mtaƐ el path tracing mangheir ma'ttiħ Ɛal 60 fps.<br>
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_rt_reflection.png" 
+				alt="rendering_ray_tracing_002_rt_reflection">
+			</div>
+		</div>
+		<div class="section">
+			<h2>El farq̈ bin Path tracing w Ray tracing: Global Illumination</h2>
+			<p>
+				Nzoumiew Ɛal coin el fouq̈ani.
+			</p>
+			<p>
+				Kima tchoufou el 
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_pt_gi.png" 
+				alt="rendering_ray_tracing_002_pt_gi">
+			</div>
+			<p>
+				Par contre el resultat mtaƐ el ray tracing mahoch précis, w'el dhol mtaƐ el spheres eli 3la jnab dekhil baƐdhou.<br>
+				Zid zyeda el resolution mtaƐ el reflection tayħa, w'el taswira flou chwayya.<br>
+				Houwa sħiħ, famma barcha settings(parameters) ennajmou nbadlouhom bech nħasnou el qualité, ama sƐib bech toq̈reb m'el resultat mtaƐ el path tracing mangheir ma'ttiħ Ɛal 60 fps.<br>
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_rt_gi.png" 
+				alt="rendering_ray_tracing_002_rt_gi">
+			</div>
+		</div>
+		<div class="section">
+			<h2>El farq̈ bin Path tracing w Ray tracing: Ambient Occlusion</h2>
+			<p>
+				Nzoumiew Ɛal coin el fouq̈ani.
+			</p>
+			<p>
+				Kima tchoufou el 
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_pt_ao.png" 
+				alt="rendering_ray_tracing_002_pt_reflection">
+			</div>
+			<p>
+				Par contre el resultat mtaƐ el ray tracing mahoch précis, w'el dhol mtaƐ el spheres eli 3la jnab dekhil baƐdhou.<br>
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_002_rt_ao.png" 
+				alt="rendering_ray_tracing_002_rt_reflection">
+			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
