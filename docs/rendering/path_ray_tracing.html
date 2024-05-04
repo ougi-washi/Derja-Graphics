@@ -1,0 +1,84 @@
+<!-- Derja Graphics - Jed Fakhfekh - https://github.com/ougi-washi -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Derja Graphics | Shaders</title>
+	<link rel="stylesheet" type="text/css" href="../index.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<header class="header">
+			<h2><a href="../index.html">Derja Graphics</a></h2>
+			<nav>
+				<ul>
+				</ul>
+			</nav>
+		</header>
+		<h1>Path tracing / Ray tracing</h1>
+		<div class="section">
+			<h2>Path(Ray) tracing?</h2>
+			<p>
+				"Path(Ray)-Tracing" houma zouz partiyét:<br>
+				1.a. "path": el thneyya mel camera lel objet<br> 
+				1.b. "ray": el rayon eli bech yemchi m'el camera l'el objet fi el'scene<br> 
+				2. "tracing": traçage mtaƐ el thneyya.<br>
+				Houni, el ray yq̈addem mel camera w ychouf chƐand'na f'el scene.<br>
+				Ken yelq̈a objet, ylawwén el pixela f'el écran b'couleur l'objet.<br>
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_ray_tracing_001.jpg" 
+				alt="source_invidia_rendering_ray_tracing_001" title="Ray tracing - Source: Nvidia">
+			</div>
+			<p>
+				Kima tchouf f'el image hedhi, el camera teb3ath rays w t'analyzi el couleur f'el scene.<br>
+				Ken lq̈àt objet, trajƐelna couleur l'objet lel pixel, sinon, twalli pixela kaħla.<br><br>
+				
+				Mafamech ken el "View Ray", fama zeda "Shadow Ray".<br>
+				El dhol(Shadows) houma resultat el position mtaƐ objet binnesba lel dhaw.<br>
+			</p>
+		</div>
+		<div class="section">
+			<h2>Chnou el farq̈ bin Path tracing w Ray tracing</h2>
+			<p>
+				Houma el zouz yestaƐmlou nafs el technique, ama famma nuance.<br><br>
+
+				"<a href="https://en.wikipedia.org/wiki/Path_tracing" target="_blank">Path tracing</a>" yrakkez akther Ɛal details,
+				w ykounou el details mtaƐ l'interaction mƐa el dhaw asaħ.<br>
+				Path tracing mostaƐmel akthar f'el softwares eli ykharjou renders khaw,
+				win el waq̈t mayhemmech barcha, kima el softwares lel 3D renders principalement.<br>
+				Example:<br>
+				- Visualization mtaƐ l'architecture (VRay, Corona...).<br>
+				- Aflèm (Blender Eevee, Octane Render...)<br>
+				<br>
+				"<a href="https://en.wikipedia.org/wiki/Ray_tracing_(graphics)" target="_blank">Ray tracing</a>" mostaƐmel akthar f'el real-time renders.<br>
+				"<a href="https://en.wikipedia.org/wiki/Real-time_computer_graphics" target="_blank">Real-time</a>" maƐneha lezem ykoun el render 60 fps wela akthar (kima el video games).<br>
+				<br>
+			</p>
+		</div>
+		<div class="section">
+			<h2>Fin.</h2>
+			<p>
+			</p>
+		</div>
+		<div>
+			<p>
+				Eq̈tiraħét:
+				<a href="./sdf_basics.html">sdf - basics</a> |
+				<a href="./shaders.html">shaders</a> |
+				<a href="../index.html">Home</a>
+			</p>
+		</div>
+	</div>
+	<canvas>Your browser does not seem to support HTML5 canvas.</canvas>
+	<script type="module" src="../index.js" type="text/javascript"> </script>
+</body>
+<footer>
+	Copyright 2024 - <a href="mailto:derjagraphics@gmail.com">derjagraphics@gmail.com</a><br>
+</footer>
+
+</html>
