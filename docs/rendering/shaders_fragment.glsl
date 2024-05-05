@@ -323,8 +323,8 @@ vec2 getNormalizedUV()
 
 vec2 getMousePos()
 {
-    vec2 mousePos = vec2(u_mouse.x / u_resolution.x, u_mouse.y / (u_resolution.y)) - .5;
-	mousePos.y *= -1.;
+    vec2 mousePos = (u_mouse / u_resolution) - .5;
+	mousePos *= vec2(1.65, -1.);
     return mousePos;
 }
 
@@ -415,6 +415,6 @@ void main() {
         float mouseMask = getMouseMask();
         vec3 mainLightColor = lightData.baseColor + lightData.rimLight ; //without shine
         col *= mix(mainLightColor, mainLightColor + lightData.shine, mouseMask) + mix(vec3(0.1), vec3(.6), mouseMask);
-    }  
+    }
 	gl_FragColor = vec4(col.x, col.y, col.z, 1.0);
 }

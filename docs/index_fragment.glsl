@@ -323,8 +323,8 @@ vec2 getNormalizedUV()
 
 vec2 getMousePos()
 {
-    vec2 mousePos = vec2(u_mouse.x / u_resolution.x, u_mouse.y / (u_resolution.y)) - .5;
-	mousePos.y *= -1.;
+    vec2 mousePos = (u_mouse / u_resolution) - .5;
+	mousePos *= vec2(1.65, -1.);
     return mousePos;
 }
 

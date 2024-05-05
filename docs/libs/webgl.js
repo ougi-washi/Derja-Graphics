@@ -123,7 +123,7 @@ export function startWebGL(vertexFile, fragmentFile){
     {
         document.addEventListener('mousemove', function(event) {
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
-            gl.uniform2f(mouseUniformLocation, event.clientX, event.clientY);
+            gl.uniform2fv(mouseUniformLocation, [event.clientX, event.clientY]);
         });
         // createTexture(gl, program, new URL('./resources/textures/noises/T_PerlinNoise.PNG', import.meta.url), 0, 'u_perlin_noise');
     }
