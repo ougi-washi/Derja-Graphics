@@ -153,7 +153,8 @@ nav ul li a:hover {
     padding-bottom: 1em;
     border-radius: 0.2em;
     display: inline-block; /* Adjust size based on content */
-
+    max-width: 40em;
+    width: 85%;
     overflow-x: auto;
 }
 
