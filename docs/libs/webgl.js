@@ -119,16 +119,26 @@ export function startWebGL(vertexFile, fragmentFile){
         render(); // Start the rendering loop
     }
     
+    var gyroX = 0.;
+    var gyroY = 0.;
+
     function OnDoneSetupWebGL()
     {
         document.addEventListener('mousemove', function(event) {
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
             gl.uniform2fv(mouseUniformLocation, [event.clientX, event.clientY]);
         });
-        document.addEventListener('touchstart', function(event) {
+        document.addEventListener("deviceorientation", 
+        function(event) {
+            const absolute = event.absolute;
+            const alpha = event.alpha;
+            const beta = event.beta;
+            const gamma = event.gamma;
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
-            gl.uniform2fv(mouseUniformLocation, [event.clientX, event.clientY]);
-        }, false);
+            gyroX += beta;
+            gyroY += gamma;
+            gl.uniform2fv(mouseUniformLocation, [gl.canvas.width, gl.canvas.height]);
+    }, true)
         // createTexture(gl, program, new URL('./resources/textures/noises/T_PerlinNoise.PNG', import.meta.url), 0, 'u_perlin_noise');
     }
 
