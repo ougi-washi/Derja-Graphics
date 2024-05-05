@@ -345,7 +345,7 @@ float getMouseMask()
 float map(vec3 p)
 {
     float mouseMask = getMouseMask();
-    float movementSpeed = 4.75 * u_time * step(.86, mouseMask);
+    float movementSpeed = 4.75 * u_time * smoothstep(.6, 1., mouseMask);
     p.xy = sim2d(p.xy, .75);
     float outerBox = sd_box(p - vec3(0., 0., 0.05), vec3(.2, .25, .1));
     float innerBox = sd_box(p, vec3(.19, .24, .1));
