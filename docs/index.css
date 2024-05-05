@@ -191,6 +191,11 @@ code comment {
     margin: 0 auto;
 }
 
+.image-container_small {
+    width: 20em;
+    margin: 0 auto;
+}
+
 .image-container img {
     display: block; 
     width: 100%;
