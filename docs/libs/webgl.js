@@ -135,9 +135,15 @@ export function startWebGL(vertexFile, fragmentFile){
             const beta = event.beta;
             const gamma = event.gamma;
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
-            gyroX += beta;
-            gyroY += gamma;
-            gl.uniform2fv(mouseUniformLocation, [gl.canvas.width, gl.canvas.height]);
+            if (gyroX < gl.canvas.width)
+            {
+                gyroX += beta;
+            }
+            if (gyroY < gl.canvas.height)
+            {
+                gyroY += gamma;
+            }
+            gl.uniform2fv(mouseUniformLocation, [gyroX, gyroY]);
     }, true)
         // createTexture(gl, program, new URL('./resources/textures/noises/T_PerlinNoise.PNG', import.meta.url), 0, 'u_perlin_noise');
     }
