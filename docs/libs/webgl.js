@@ -125,6 +125,10 @@ export function startWebGL(vertexFile, fragmentFile){
             var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
             gl.uniform2fv(mouseUniformLocation, [event.clientX, event.clientY]);
         });
+        document.addEventListener('touchstart', function(event) {
+            var mouseUniformLocation = gl.getUniformLocation(program, "u_mouse");
+            gl.uniform2fv(mouseUniformLocation, [event.clientX, event.clientY]);
+        }, false);
         // createTexture(gl, program, new URL('./resources/textures/noises/T_PerlinNoise.PNG', import.meta.url), 0, 'u_perlin_noise');
     }
 
