@@ -347,14 +347,6 @@ float map(vec3 p)
     float mouseMask = getMouseMask();
     float movementSpeed = 4.75 * u_time * step(.86, mouseMask);
     p.xy = sim2d(p.xy, .75);
-    // mat3 rotation_x = op_rotate_x(rotation_speed);
-    // mat3 rotation_y = op_rotate_y(rotation_speed);
-    // mat3 rotation_z = op_rotate_z(rotation_speed);
-    // p = p * rotation_x;
-    // p = p * rotation_y;
-    // p = p * rotation_z;
-    // float mainSphereMask = mix(sd_octahedron_exact(p, .1), sd_sphere(p, .1), smoothstep(0.8, 1., mouseMask));
-	// return mainSphereMask;
     float outerBox = sd_box(p - vec3(0., 0., 0.05), vec3(.2, .25, .1));
     float innerBox = sd_box(p, vec3(.19, .24, .1));
     float container = op_subtraction(innerBox, outerBox);
