@@ -152,7 +152,7 @@ nav ul li a:hover {
     padding-top: 1em;
     padding-bottom: 1em;
     border-radius: 0.2em;
-    display: inline-block;
+    margin: 0 auto;
     max-width: 80%;
     overflow-x: auto;
 }
