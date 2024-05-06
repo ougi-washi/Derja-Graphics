@@ -346,7 +346,7 @@ float map(vec3 p)
 {
     //float noise_tex = texture2D(u_perlin_noise, (u_time * .02 + getNormalizedUV() * .5 + .5) * .1).x;
     float mouseMask = getMouseMask();
-    float rotation_speed = .75 * u_time + getMouseMask();
+    float rotation_speed = .15 * u_time + getMouseMask();
     p.xy = sim2d(p.xy, .3);
     mat3 rotation_x = op_rotate_x(rotation_speed);
     mat3 rotation_y = op_rotate_y(rotation_speed);
