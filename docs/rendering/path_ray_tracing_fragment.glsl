@@ -344,7 +344,7 @@ float getMouseMask()
 
 float map(vec3 p)
 {
-    float movementSpeed = 4.75 * u_time * smoothstep(-.4, .8 , getMouseMask());
+    float movementSpeed = 1.5 * u_time * smoothstep(-.3, 1. , getMouseMask());
     p.xy = sim2d(p.xy, .45);
     vec2 uv = getNormalizedUV();
     mat3 rotation_y = op_rotate_y(-uv.x * .8);
@@ -352,9 +352,7 @@ float map(vec3 p)
     float outerBox = sd_box(p - vec3(0., 0., 0.01), vec3(.1, .15, .1));
     float innerBox = sd_box(p, vec3(.09, .14, .1));
     float container = op_subtraction(innerBox, outerBox);
-    
     float sphereCenter = sd_sphere(p + vec3(0., mix(.105, .005, abs(sin(movementSpeed))), -.05), .03);
-    
     float fullScene = op_union(sphereCenter, container);
     return fullScene;
 }
@@ -393,7 +391,7 @@ LightData getLight(vec3 p)
 
     vec3 normal = getNormal(p);
 	vec3 base = -dot(normal, lightDir) * vec3(1.);
-	vec3 rimLight = smoothstep(0.99, 1.01, base) * vec3(.8, 0.5, .9) * 2. + customMouseRedMask;
+	vec3 rimLight = smoothstep(0.99, 1.01, base) * vec3(0.5176, 0.502, 0.902) * 2. + customMouseRedMask;
     vec3 shine = vec3(pow(rimLight.x * 2., 2.), pow(rimLight.y * 2., 2.), pow(rimLight.z * 2., 2.));
     
     return LightData(base, rimLight, shine);
@@ -411,7 +409,7 @@ void main() {
     if (dist < MAX_DIST)
     {
         vec3 pHit = ro + rd * dist;
-        col += vec3(.1, .0, .5);
+        col += vec3(.25, .0, .8);
         LightData lightData = getLight(pHit);
         float mouseMask = getMouseMask();
         vec3 mainLightColor = lightData.baseColor + lightData.rimLight ; //without shine
