@@ -3,7 +3,7 @@
 #version 100
 precision mediump float;
 
-#define MAX_STEPS 26
+#define MAX_STEPS 20
 #define MAX_DIST 50.
 #define MIN_DIST 0.0001
 
@@ -345,13 +345,16 @@ float getMouseMask()
 float map(vec3 p)
 {
     float mouseMask = getMouseMask();
-    float movementSpeed = 4.75 * u_time * smoothstep(.6, 1., mouseMask);
-    p.xy = sim2d(p.xy, .75);
-    float outerBox = sd_box(p - vec3(0., 0., 0.05), vec3(.2, .25, .1));
-    float innerBox = sd_box(p, vec3(.19, .24, .1));
+    float movementSpeed = 4.75 * u_time * smoothstep(.0, .5 , mouseMask);
+    p.xy = sim2d(p.xy, .4);
+    vec2 uv = getNormalizedUV();
+    mat3 rotation_y = op_rotate_y(-uv.x * .8);
+    p = p * rotation_y;
+    float outerBox = sd_box(p - vec3(0., 0., 0.01), vec3(.1, .15, .1));
+    float innerBox = sd_box(p, vec3(.09, .14, .1));
     float container = op_subtraction(innerBox, outerBox);
     
-    float sphereCenter = sd_sphere(p + vec3(0., mix(.185, .01, abs(sin(movementSpeed))), -.05), .05);
+    float sphereCenter = sd_sphere(p + vec3(0., mix(.105, .005, abs(sin(movementSpeed))), -.05), .03);
     
     float fullScene = op_union(sphereCenter, container);
     return fullScene;
