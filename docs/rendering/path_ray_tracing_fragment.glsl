@@ -344,9 +344,8 @@ float getMouseMask()
 
 float map(vec3 p)
 {
-    float mouseMask = getMouseMask();
-    float movementSpeed = 4.75 * u_time * smoothstep(.0, .5 , mouseMask);
-    p.xy = sim2d(p.xy, .4);
+    float movementSpeed = 4.75 * u_time * smoothstep(-.4, .8 , getMouseMask());
+    p.xy = sim2d(p.xy, .45);
     vec2 uv = getNormalizedUV();
     mat3 rotation_y = op_rotate_y(-uv.x * .8);
     p = p * rotation_y;
