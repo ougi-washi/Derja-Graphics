@@ -81,7 +81,7 @@
 			</div>
 			<p>
 				Fama ħaja essemha "SDF operators" eli heya tkhallina nzidou akthar men object weħed lel scene.<br>
-				Bech nfasrouhom baƐd ama tnajem telq̈a el objects w'el operatel kol 
+				Bech nfasrouhom baƐd ama tnajem telq̈a el objects w'el operators el'kol 
 				<a href="https://iquilezles.org/articles/distfunctions/" target="_blank">houni</a>.
 			</p>
 			</div>
@@ -92,17 +92,74 @@
 					Hedhi el Sphere function:<br>
 				</p>
 				<div id="highlighterMainDiv_354674" class="syntaxhighlighter nogutter cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>&nbsp;</td></tr><tr><td id="codeContainer_354674" class="code"><div id="container_354674" class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">float</code> <code class="cpp plain">sdSphere(vec3 p)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">length(p) - 1.;</code></div><div class="line number4 index3 alt1"><code class="cpp plain">}</code></div></div></td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table></div>
+			</div>
+			<p></p>
+			<div id="glsl-code">
 				<p>
 					Kobr el sphere "1.0" f'hal example.<br>
-					Ken nħebbou n'akhtarou el size, nƐaddiwah comme parameter, kima haka:<br>
+					Ken nħebbou n'akhtarou el size, nƐaddiwah comme parameter, kima hak:<br>
 				</p>
 				<div id="highlighterMainDiv_126387" class="syntaxhighlighter nogutter cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>&nbsp;</td></tr><tr><td id="codeContainer_126387" class="code"><div id="container_126387" class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">float</code> <code class="cpp plain">sdSphere(vec3 p, </code><code class="cpp color1 bold">float</code> <code class="cpp plain">size)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">length(p) - size;</code></div><div class="line number4 index3 alt1"><code class="cpp plain">}</code></div></div></td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table></div>
+				<p>
+					Tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
+				</p>
 				<div class="image-container">
 					<a href="https://www.shadertoy.com/view/MfVXRw" target="_blank" title="Shadertoy link">
 						<img src="./images/rendering_sdf_basics_002.png" alt="rendering_sdf_basics_002">
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="section">
+			<h2>Shading</h2>
+			<p>
+				S'ħiħ, ennajmou nchoufou el sphere, ama l'aspet 3D mteƐha mayetchefich.<br>
+				El étape el jeya, lezem ndhahrou l'effet 3D.<br>
+				Kima fassarneha f'el <a href="./intro.html" target="_blank">intro</a>, nestaƐmlou el "normal" bech naƐmlou el shading.<br>
+				L'objet hedheya maƐandouch poinèt(vertices) ħadhrin, Ɛla khatrou moch objet 3D Ɛadi, plutôt houwa function mtaƐ distances (SDF).<br>
+			</p>
+			<p>
+				Lezem neħsbou el "normal", wela plutôt n'tagzou chwaya w ntalƐou el "normal".<br>
+				Malheureusement, ma najmouch n'talƐou el valeur exacte mtaƐ el "normal" donc:<br> 
+				- nzidou w naq̈sou chwaya f'el hitpoint mtaƐ el ray.<br>
+				- natrħou w naq̈smou f'el resultat eli lq̈ineh.<br>
+				F'el taswira el jeya, bech nalq̈aw el valeur mtaƐ el normal,<br>
+				n'calculiw el scene mteƐna b: <code>scene(MR + Epsilon) - scene(MR - Epsilon)</code>,<br> 
+				Fi Ɛoudh juste el <code>scene(MR)</code> eli nestaƐmlouha el Ɛada.
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_sdf_basics_003.png" alt="rendering_sdf_basics_003">
+			</div>
+			<p>
+				Hedheya el code eli yeħseb el normal f'el directionèt el kol "X", "Y", w "Z".<br>
+				Note: Lezem n'normaliziw el resutlat. "Normalize" yeƐni naq̈smou el vecteur Ɛla length mteƐou bech ywalliw el valeuràt binét 0 w 1.
+			</p>
+			<code>
+			<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(180, 180, 180);"><span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> estimateNormal(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> p) {
+	<span class="hljs-keyword" style="font-weight: 700;">return</span> <span class="hljs-built_in" style="color: rgb(57, 180, 180);">normalize</span>(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(
+		sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x + EPSILON, p.y, p.z)) - sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x - EPSILON, p.y, p.z)),
+		sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y + EPSILON, p.z)) - sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y - EPSILON, p.z)),
+		sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y, p.z  + EPSILON)) - sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y, p.z - EPSILON))
+	));
+}</pre>
+			</code>
+			<p>
+				Bech ennajmou ngeddou el couleur, fi ékher el function <code>main()</code>, nekh'dhou el distance finale w ntalƐou biha el normal.<br>
+				BaƐd, n'settiw el <code>fragColor</code> mteƐna eli bien sûr tbaddel el couleur.
+			</p>
+			<code>
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(00, 0, 0); color: rgb(180, 180, 180);"><span class="hljs-comment" style="color: rgb(0, 180, 0);">// Nlawanou el resultat b'el normal</span>
+<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> normalColor = sceneNormal(cameraPosition + cameraDirection * dist);
+fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(normalColor, <span class="hljs-number" style="color: rgb(180, 0, 0);">1.0</span>);</pre>
+			</code>		
+			<p>
+				Tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/lcySzV" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_004.png" alt="rendering_sdf_basics_004">
+				</a>
+			</div>	
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>

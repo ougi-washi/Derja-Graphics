@@ -69,7 +69,7 @@ nav ul li a:hover {
 
 .container {
     margin: 0 auto;
-    padding: 20px;
+    padding: 0.1em;
     max-width: 80%;
     position: relative;
     font-family: Arial, sans-serif;
@@ -165,6 +165,8 @@ code, #glsl-code code {
     font-size: 1.3em;
     color: #b2ad8f;
     font-weight: bold;
+    width: 90%;
+    max-width: 10em;
 }
 
 code comment {
