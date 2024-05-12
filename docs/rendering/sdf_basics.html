@@ -160,12 +160,12 @@ fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(n
 					<img src="./images/rendering_sdf_basics_004.png" alt="rendering_sdf_basics_004">
 				</a>
 			</div>	
-		<p>
+			<p>
 			Taw, madém Ɛandna el normal, simple shading sehil barcha.
 			Juste naƐmlou dot product lel normal comparé l'direction el dhaw, kima fassarneha q̈bal 
 			(<a href="./intro.html" target="_blank">intro</a>).
 			<code>
-	<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(20, 20, 20); color: rgb(68, 68, 68);">
+	<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(20, 20, 20); color: rgb(180, 180, 180);">
 <span class="hljs-comment" style="color: rgb(0, 180, 0);">// Nlawjou Ɛal normal</span>
 <span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> normalVector = sceneNormal(cameraPosition + cameraDirection * dist);
 					
@@ -181,17 +181,31 @@ lightShading = <span class="hljs-built_in" style="color: rgb(129, 115, 180);">ma
 
 fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(lightShading, lightShading, lightShading, <span class="hljs-number" style="color: rgb(180, 0, 0);">1.0</span>);</pre>
 			</code>
-		</p>
-		<p>
-			Kima el Ɛada, tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
-		</p>
-		<div class="image-container">
-			<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
-				<img src="./images/rendering_sdf_basics_005.png" alt="rendering_sdf_basics_005">
-			</a>
+			</p>
+			<p>
+				Kima el Ɛada, tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_005.png" alt="rendering_sdf_basics_005">
+				</a>
+			</div>
+			<p>
+				Hedha l'effet mtaƐ el dhaw yetsamma "Diffuse" w howa mostaƐmel barcha fi presque aya visualization 3D (example: aflèm, games, w visualizations).<br>
+				Houwa sħiiħ ennajmou nchoufou el sphere dhawya taw, ama t'ħessha dhalma barcha m'el jiha lokhra.
+			</p>	
+			<code>
+	<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(20, 20, 20); color: rgb(180, 180, 180);">
+<span class="hljs-type" style="color: rgb(180, 0, 0);">float</span> ambientLight = <span class="hljs-number" style="color: rgb(180, 0, 0);">0.1</span>;
+lightShading = lightShading + ambientLight;</pre>
+			</code>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_006.png" alt="rendering_sdf_basics_006">
+				</a>
+			</div>
 		</div>
-		<p>Hedha l'effet mtaƐ el dhaw yetsamma "Diffuse" w howa mostaƐmel barcha fi presque aya visualization 3D (eg. games).</p>	
-		</div>
+
 		<div class="section">
 			<h2>Fin.</h2>
 			<p>
