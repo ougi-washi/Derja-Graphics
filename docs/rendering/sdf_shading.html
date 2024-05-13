@@ -199,14 +199,42 @@
 			<h2>Specular light</h2>
 			<p>
 				Taw el sphere wadh'ħa w tnajem tq̈oul mafamech mochkel, ama todh'ħer plastique chwaya w neq̈sa lamƐa.<br>
-				Hedha win nestaƐmlou el specular!
+				Hedha win nestaƐmlou el specular!<br>
+				El specular heya lamƐa f'el objet men jihet el camera. El lamƐa hedhi Ɛibara Ɛla reflection simple.<br>
+				Bech ennajmou n'calculiwha, yelzem ykoun Ɛandna l'angle el sħiiħ.
 			</p>
+			<div class="image-container">
+				<img src="./images/rendering_sdf_basics_011.png" alt="rendering_sdf_basics_011">
+			</div>
+			<p>
+				Todh'her complex w sƐiiba ama pas vraiment, les functions Ɛandna ħadhrin. TabaƐ mƐaya waħda waħda.<br>
+				Awel ħaja, ntalƐou el direction mtaƐ l'reflection. 
+				Ennajmou nestaƐmlou function <code>"<fn>reflect</fn>(vector1, vector2)"</code> bech nelq̈aw el vector.<br>
+				El function hedhiya taƐtina el reflet mtaƐ direction binnesba l'direction okhra. F'el cas hedha, el direction mtaƐ el dhaw binnesba lel normal.
+			</p>
+			<pre><code><comment>// Nakhtarou couleur lel specular</comment>
+<type>vec3</type> <variable>specularColor</variable> = <fn>vec3</fn>(0.75, 0.75, 1.);
+	
+<comment>// Nest'ħaqou el direction mtaƐ l'reflection bech neħsbou el specular</comment>
+<type>vec3</type> <variable>reflectDirection</variable> = <fn>reflect</fn>(<variable>lightDirection</variable>, <variable>normalVector</variable>);  
+	
+<comment>// Neħsbou el dot product binét el camera w'el reflection</comment>
+<type>float</type> <variable>cameraDotReflection</variable> = <fn>dot</fn>(<variable>cameraDirection</variable>, <variable>reflectDirection</variable>);
+	
+<comment>// El pow() taƐtina control Ɛla kobr el specular </comment>
+<type>float</type> <variable>specularAmount</variable> = <fn>pow</fn>(<fn>max</fn>(<variable>cameraDotReflection</variable>, 0.0), 32.0);
+	
+<comment>// W hedha control Ɛal intensity</comment>
+<type>float</type> <variable>specularIntensity</variable> = 0.5;
+	
+<comment>// Finaliement, el total mtaƐ el specular light</comment>
+<type>vec3</type> <variable>specularLight</variable> = <variable>specularColor</variable> * <variable>specularAmount</variable> * <variable>specularIntensity</variable>;</code></pre>
 			<p>
 				Enzel Ɛal taswira w jarrab el code, ma tefhem ken mat'balbaz w tsallaħ waħdek!
 			</p>
 			<div class="image-container">
-				<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
-					<img src="./images/rendering_sdf_basics_006.png" alt="rendering_sdf_basics_006">
+				<a href="https://www.shadertoy.com/view/4cKSRt" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_012.png" alt="rendering_sdf_basics_012">
 				</a>
 			</div>
 		</div>
