@@ -145,9 +145,9 @@ nav ul li a:hover {
 }
 
 #glsl-code {
-    margin-top: 0.0em;
-    background-color: rgba(245, 245, 245, 0.3);
-    padding-right: 1em;
+    /*margin-top: 0.0em;
+    /* background-color: rgba(245, 245, 245, 0.3); */
+     padding-right: 1em;
     padding-left: 1em;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -161,7 +161,7 @@ nav ul li a:hover {
     color: #ccc5a1;
 }
 
-code, #glsl-code code {
+#glsl-code code {
     font-size: 1.3em;
     color: #b2ad8f;
     font-weight: bold;
@@ -169,8 +169,45 @@ code, #glsl-code code {
     max-width: 10em;
 }
 
+pre {
+    display: block;
+    padding: 1em;
+    background: rgb(20, 20, 20);
+    color: rgb(180, 180, 180);
+    overflow-x: auto;
+    line-height: 150%;
+}
+
+code {
+    background: rgb(20, 20, 20);
+    padding-left: 1%;
+    padding-right: 1%;
+    font-size: 1.1em;
+    font-weight: bold;
+} 
+
 code comment {
-    color: #5aa85a;
+    color: #46aa46;
+}
+
+code type {
+    color: #cb3535;
+}
+
+code number {
+    color: #52a5ce;
+}
+
+code fn {
+    color: #c679dc;
+}
+
+code return {
+    color: #6a84fa;
+}
+
+code keyword {
+    color: #6a84fa;
 }
 
 .tabbed-content {

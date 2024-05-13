@@ -66,12 +66,10 @@
 					target="_blank">HLSL</a> w mayebƐedch Ɛal C.<br>
 				Innejmou nestaƐmlou site kima <a href="https://www.shadertoy.com/" target="_blank">ShaderToy</a> bech
 				n'testiw el pixel/fragment shaders (eli y't'executew Ɛla kol pixela).
-			<div id="glsl-code" class="language-glsl">
 				Example:<br>
-				<pre><code>fragColor = vec4(0.5, 0.1, 0.8, 0.0);</code></pre>
+				<pre><code><variable>fragColor</variable> = <type>vec4</type>(0.5, 0.1, 0.8, 0.0);</code></pre>
 				<iframe width="320" height="240" frameborder="0"
 					src="https://www.shadertoy.com/embed/Mf3SzS?gui=false&t=10&paused=true&muted=false"></iframe>
-			</div>
 			</p>
 			<p>
 
@@ -87,12 +85,12 @@
 				Ɛanna el possibilité bech naƐrfou el position mteƐ kol pixela, b'esteƐmèl l'<a
 					href="https://en.wikipedia.org/wiki/UV_mapping" , target="_blank">UVs</a>,
 				eli houma el coordonnées mteƐ el pixela fel ecran.<br>
-			<div id="glsl-code" class="language-glsl">
 				Example:<br>
-				<pre><code>vec2 normalizedCoord = fragCoord / iResolution.xy;<br>fragColor = vec4(normalizedCoord, 0.0, 1.0);</code></pre>
+				<pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
+ <variable>fragColor</variable> = <type>vec4</type>(<variable>normalizedCoord</variable>, 0.0, 1.0);</code></pre>
+					
 				<iframe width="320" height="240" frameborder="0"
 					src="https://www.shadertoy.com/embed/XcdSzs?gui=false&t=10&paused=true&muted=false"></iframe>
-			</div>
 			<p>
 				Fel cas hedha, naq̈smou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1 (estaƐmelna <code>iResolution</code>, eli mawjouda par defaut fi ShaderToy).<br>
 				Yomken leħedht elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs khater el écran
@@ -102,52 +100,42 @@
 				El resultat hedha Ɛibara Ɛla 2 degradé(gradient) b couleurat différents.<br>
 				Houni, el couleurat houma red w green, w yetq̈ablou fel coin ywalliw yellow.<br>
 			</p>
-			<div id="glsl-code" class="language-glsl">
-				Red:
-				<pre><code>float uvX = fragCoord.x / iResolution.x;<br>fragColor = vec4(uvX, 0.0, 0.0, 0.0);</code></pre>
+				<pre><code><comment>// Red</comment>
+<type>float</type> <variable>uvX</variable> = <variable>fragCoord</variable>.x / <variable>iResolution</variable>.x;
+<variable>fragColor</variable> = <type>vec4</type>(<variable>uvX</variable>, 0.0, 0.0, 0.0);</code></pre>
 				<iframe width="240" height="180" frameborder="0"
 					src="https://www.shadertoy.com/embed/lfcSWS?gui=false&t=10&paused=true&muted=false"></iframe>
-			</div>
-			<div id="glsl-code" class="language-glsl">
-				Green:
-				<pre><code>float uvX = fragCoord.y / iResolution.y;<br>fragColor = vec4(uvY, 0.0, 0.0, 0.0);</code></pre>
+				<pre><code><comment>// Green</comment>
+<type>float</type> <variable>uvY</variable> = <variable>fragCoord</variable>.y / <variable>iResolution</variable>.y;
+<variable>fragColor</variable> = <type>vec4</type>(0.0, <variable>uvY</variable>, 0.0, 0.0);</code></pre>
 				<iframe width="240" height="180" frameborder="0"
 					src="https://www.shadertoy.com/embed/lc3XWS?gui=false&t=10&paused=true&muted=false"></iframe>
-			</div>
-			</p>
 			<p>
 				Puisque Ɛandna el position mteƐ kol pixela, ennajmou nsawrou el fourma eli nħebbou Ɛliha.<br>
 				Par example, bech nsawrou circle, nestħaq̈ou nq̈arnou el distance ma bin el circle w position el pixela.
-			<div id="glsl-code" class="language-glsl">
 				Example:
-				<pre><code>vec2 normalizedCoord = fragCoord / iResolution.xy;<br>float circleMask = distance(normalizedCoord, vec2(0.5, 0.5));<br>fragColor = vec4(circleMask, 0.0, 0.0, 0.0);</code></pre>
+<pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
+<type>float</type> <variable>circleMask</variable> = <fn>distance</fn>(<variable>normalizedCoord</variable>, <type>vec2</type>(0.5, 0.5));
+<variable>fragColor</variable> = <type>vec4</type>(<variable>circleMask</variable>, 0.0, 0.0, 0.0);</code></pre>					
 				<iframe width="320" height="240" frameborder="0"
 					src="https://www.shadertoy.com/embed/4cdSWS?gui=false&t=10&paused=true&muted=false"></iframe>
-			</div>
 			</p>
 			<p>
 				Voilà, nekhdhou el <code>normalizedCoord</code> w n'thabtou el distance mƐa l'centre <code>vec2(0.5, 0.5)</code>.<br>
 				Hakka ywalli Ɛandna gradient yebda m'el centre, samminéh <code>circleMask</code>, w ħattineh f'el fragColor (Red).
 				mazelou 2 étapes neq̈sin:<br>
-				- n'invertiw el couleurs (x = 1 - x)<br>
-				- nestaƐmlou step function bech ngeddou limite lel circle mteƐna. El gradient mayseƐednech houni, ma'najmouch nchoufou el chfar(edge) mteƐ el circle.
+				- n'invertiw el couleurs: <code>x = 1 - x</code><br>
+				- nestaƐmlou step function bech ngeddou limite lel circle mteƐna. El gradient mayseƐednech houni, ma'najmouch nchoufou el chfar(edge) mteƐ el circle.<br>
+				Example:
 			</p>
-			<p>
-				<div id="glsl-code" class="language-glsl">
-					Example:<br><br>
-					<code>
-						vec2 normalizedCoord = fragCoord / iResolution.xy;<br>
-						<comment>// l'etape loula: inversion (circleMask = 1 - circleMask)</comment><br>
-						float circleMask = 1.0 - distance(normalizedCoord, vec2(0.5, 0.5));<br>
-						<comment>// l'etape e'thenya: limite lel circle (step function)</comment><br>
-						circleMask = step(0.5, circleMask);<br>
-						
-						fragColor = vec4(circleMask, 0.0, 0.0, 0.0);
-					</code>
-					<iframe width="320" height="240" frameborder="0"
-						src="https://www.shadertoy.com/embed/XctXWB?gui=false&t=10&paused=true&muted=false"></iframe>
-				</div>
-			</p>
+
+				<pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
+ <comment>// l'etape loula: inversion (circleMask = 1 - circleMask)</comment>
+ <type>float</type> <variable>circleMask</variable> = 1.0 - <fn>distance</fn>(<variable>normalizedCoord</variable>, <type>vec2</type>(0.5, 0.5));
+ <comment>// l'etape e'thenya: limite lel circle (step function)</comment>
+ <variable>circleMask</variable> = <fn>step</fn>(0.5, <variable>circleMask</variable>);</code></pre>
+				<iframe width="320" height="240" frameborder="0"
+					src="https://www.shadertoy.com/embed/XctXWB?gui=false&t=10&paused=true&muted=false"></iframe>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>

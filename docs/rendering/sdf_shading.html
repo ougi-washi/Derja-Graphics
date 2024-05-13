@@ -50,24 +50,20 @@
 				Hedheya el code eli yeħseb el normal f'el directionèt el kol "X", "Y", w "Z".<br>
 				Note: Lezem n'normaliziw el resutlat. "Normalize" yeƐni naq̈smou el vecteur Ɛla length mteƐou bech ywalliw el valeuràt binét 0 w 1.
 			</p>
-			<code>
-			<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(0, 0, 0); color: rgb(180, 180, 180);"><span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> estimateNormal(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> p) {
-	<span class="hljs-keyword" style="font-weight: 700;">return</span> <span class="hljs-built_in" style="color: rgb(57, 180, 180);">normalize</span>(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(
-		sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x + EPSILON, p.y, p.z)) - sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x - EPSILON, p.y, p.z)),
-		sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y + EPSILON, p.z)) - sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y - EPSILON, p.z)),
-		sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y, p.z  + EPSILON)) - sceneSDF(<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(p.x, p.y, p.z - EPSILON))
+			<pre><code><type>vec3</type> <fn>estimateNormal</fn>(<type>vec3</type> p) {
+	<return>return</return> normalize(vec3(
+	<fn>sceneSDF</fn>(vec3(p.x + <number>EPSILON</number>, p.y, p.z)) - <fn>sceneSDF</fn>(vec3(p.x - <number>EPSILON</number>, p.y, p.z)),
+	<fn>sceneSDF</fn>(vec3(p.x, p.y + <number>EPSILON</number>, p.z)) - <fn>sceneSDF</fn>(vec3(p.x, p.y - <number>EPSILON</number>, p.z)),
+	<fn>sceneSDF</fn>(vec3(p.x, p.y, p.z  + <number>EPSILON</number>)) - <fn>sceneSDF</fn>(vec3(p.x, p.y, p.z - <number>EPSILON</number>))
 	));
-}</pre>
-			</code>
+}</code></pre>
 			<p>
 				Bech ennajmou ngeddou el couleur, fi ékher el function <code>main()</code>, nekh'dhou el distance finale w ntalƐou biha el normal.<br>
 				BaƐd, n'settiw el <code>fragColor</code> mteƐna eli bien sûr tbaddel el couleur.
 			</p>
-			<code>
-<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(00, 0, 0); color: rgb(180, 180, 180);"><span class="hljs-comment" style="color: rgb(0, 180, 0);">// Nlawanou el resultat b'el normal</span>
-<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> normalVector = sceneNormal(cameraPosition + cameraDirection * dist);
-fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(normalVector, <span class="hljs-number" style="color: rgb(180, 0, 0);">1.0</span>);</pre>
-			</code>		
+			<pre><code><comment>// Nlawanou el resultat b'el normal</comment>
+<type>vec3</type> <variable>normalVector</variable> = <fn>sceneNormal</fn>(<variable>cameraPosition</variable> + <variable>cameraDirection</variable> * <variable>dist</variable>);
+<variable>fragColor</variable> = <fn>vec4</fn>(<variable>normalVector</variable>, 1.0);</code></pre>	
 			<p>
 				Tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
 			</p>
@@ -83,23 +79,20 @@ fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(n
 			Taw, madém Ɛandna el normal, simple shading sehil barcha.
 			Juste naƐmlou dot product lel normal comparé l'direction el dhaw, kima fassarneha q̈bal 
 			(<a href="./intro.html" target="_blank">intro</a>).
-			<code>
-	<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(20, 20, 20); color: rgb(180, 180, 180);">
-<span class="hljs-comment" style="color: rgb(0, 180, 0);">// Nlawjou Ɛal normal</span>
-<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> normalVector = sceneNormal(cameraPosition + cameraDirection * dist);
+			<pre><code><comment>// Nlawjou Ɛal normal</comment>
+<type>vec3</type> <variable>normalVector</variable> = <fn>sceneNormal</fn>(<variable>cameraPosition</variable> + <variable>cameraDirection</variable> * <variable>dist</variable>);
 					
-<span class="hljs-comment" style="color: rgb(0, 180, 0);">// N'settiw el direction mtaƐ el dhaw</span>
-<span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span> lightDirection = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec3</span>(<span class="hljs-number" style="color: rgb(180, 0, 0);">1</span>, <span class="hljs-number" style="color: rgb(180, 0, 0);">1</span>, <span class="hljs-number" style="color: rgb(180, 0, 0);">0</span>);
+<comment>// N'settiw el direction mtaƐ el dhaw</comment>
+<type>vec3</type> <variable>lightDirection</variable> = <fn>vec3</fn>(1, 1, 0);
 					
-<span class="hljs-comment" style="color: rgb(0, 180, 0);">// Neħsbou el light shading (diffuse)</span>
-<span class="hljs-type" style="color: rgb(180, 0, 0);">float</span> lightShading = <span class="hljs-built_in" style="color: rgb(129, 115, 180);">dot</span>(normalVector, lightDirection);
+<comment>// Neħsbou el light shading (diffuse)</comment>
+<type>float</type> <variable>lightShading</variable> = <fn>dot</fn>(<variable>normalVector</variable>, <variable>lightDirection</variable>);
 					
-<span class="hljs-comment" style="color: rgb(0, 180, 0);">// Dot product trajƐelna valeur bin -1 w 1, or que aħna manħebbouhech negative </span>
-<span class="hljs-comment" style="color: rgb(0, 180, 0);">// Donc n'estaƐmlou max(x, y) houni bech tkoun el valeur minimale 0, moch aq̈al</span>
-lightShading = <span class="hljs-built_in" style="color: rgb(129, 115, 180);">max</span>(<span class="hljs-number" style="color: rgb(180, 0, 0);">0.0</span>, lightShading);
+<comment>// Dot product trajƐelna valeur bin -1 w 1, or que aħna manħebbouhech negative 
+// Donc n'estaƐmlou max(x, y) houni bech tkoun el valeur minimale 0, moch aqal</comment>
+<variable>lightShading</variable> = <fn>max</fn>(0.0, <variable>lightShading</variable>);
 
-fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(lightShading, lightShading, lightShading, <span class="hljs-number" style="color: rgb(180, 0, 0);">1.0</span>);</pre>
-			</code>
+<variable>fragColor</variable> = <fn>vec4</fn>(<variable>lightShading</variable>, <variable>lightShading</variable>, <variable>lightShading</variable>, 1.0);</code></pre>
 			</p>
 			<p>
 				Kima el Ɛada, tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
@@ -118,12 +111,10 @@ fragColor = <span class="hljs-type" style="color: rgb(180, 0, 0);">vec4</span>(l
 			<p>
 				Houwa sħiiħ ennajmou nchoufou el sphere dhawya taw, ama t'ħessha dhalma barcha m'el jiha lokhra.
 			</p>
-			<code>
-	<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(20, 20, 20); color: rgb(180, 180, 180);">
-<span class="hljs-comment" style="color: rgb(0, 180, 0);">// Nzidou el ambient light</span>
-<span class="hljs-type" style="color: rgb(180, 0, 0);">float</span> ambientLight = <span class="hljs-number" style="color: rgb(180, 0, 0);">0.1</span>;
-lightShading = lightShading + ambientLight;</pre>
-			</code>
+			<pre><code><comment>// Nzidou el ambient light</comment>
+<type>float</type> <variable>ambientLight</variable> = 0.1;
+<variable>lightShading</variable> = <variable>lightShading</variable> + <variable>ambientLight</variable>;</code></pre>
+				
 			<p>
 				Enzel Ɛal taswira ken t'ħeb tbaddel el code.
 			</p>

@@ -65,20 +65,49 @@
 			<p>
 				Function mtaƐ el raymarching:<br> 
 			</p>
-			<div id="glsl-code">
-				<div id="highlighterMainDiv_683670" class="syntaxhighlighter nogutter cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>&nbsp;</td></tr><tr><td id="codeContainer_683670" class="code"><div id="container_683670" class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">float</code> <code class="cpp plain">raymarch(vec3 cameraPosition, vec3 cameraDirection)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// N'initializew el depth(FR: profondeur) mtaƐ el ray (houni MIN_DIST = 0)</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">depth = MIN_DIST;</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Kol marra nq̈admou chwaya (men 0 lel max steps: MAX_MARCHING_STEPS = 20)</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 0; i &lt; MAX_MARCHING_STEPS; i++) {</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Nthabtou el distance l'aq̈rab point f'el scene mteƐna</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">dist = sceneSDF(cameraPosition + depth * cameraDirection);</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Idha ken el distance asghar m'el epsilon,&nbsp; (houni EPSILON = 0.001)</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(dist &lt; EPSILON) {</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Fi west el surface!</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">depth;</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Q̈addem el depth ħasb el distance</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">depth += dist;</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(depth &gt;= MAX_DIST) {</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// BƐiid yecer, zeyed, nrajƐou el distance maximale eli wselnelha (houni MAX_DIST = 100)</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">MAX_DIST;</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Une fois kammelna m'el raymarching loop, n'returniew MAX_DIST</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">MAX_DIST;</code></div><div class="line number30 index29 alt1"><code class="cpp plain">}</code></div></div></td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table></div>
-			</div>
+			<pre><code><type>float</type> <fn>raymarch</fn>(<type>vec3</type> cameraPosition, <type>vec3</type> cameraDirection)
+ {
+ 	<comment>// N'initializew el depth(FR: profondeur) mtaƐ el ray (houni MIN_DIST = 0)</comment>
+ 	<type>float</type> depth = MIN_DIST;
+ 		
+ 	<comment>// Kol marra nqadmou chwaya (men 0 lel max steps: MAX_MARCHING_STEPS = 20)</comment>
+ 	<keyword>for</keyword> (<type>int</type> i = 0; i &lt; MAX_MARCHING_STEPS; i++) {
+ 		
+ 		<comment>// Nthabtou el distance l'aq̈rab point f'el scene mteƐna</comment>
+ 		<type>float</type> dist = <fn>sceneSDF</fn>(cameraPosition + depth * cameraDirection);
+ 			
+ 		<comment>// Idha ken el distance asghar m'el epsilon,  (houni EPSILON = 0.001)</comment>
+ 		<keyword>if</keyword> (dist &lt; EPSILON) {
+ 			
+ 			<comment>// Fi west el surface!</comment>
+ 			<keyword>return</keyword> depth;
+ 		}
+ 			
+ 		<comment>// Qaddem el depth ħasb el distance</comment>
+ 		depth += dist;
+ 			
+ 		<keyword>if</keyword> (depth &gt;= MAX_DIST) {
+ 			<comment>// BƐiid yecer, zeyed, nrajƐou el distance maximale eli wselnelha (houni MAX_DIST = 100)</comment>
+ 			<keyword>return</keyword> MAX_DIST;
+ 		}
+ 	}
+ 		
+ 	<comment>// Une fois kammelna m'el raymarching loop, n'returniew MAX_DIST</comment>
+ 	<keyword>return</keyword> MAX_DIST;
+ }</code></pre>
 			<p>
 				Binnesba lel "sceneSDF", heya juste function elli t'representi el scene mteƐna.<br> 
 				El scene tnajem tkoun 1 object wela barcha objects. Kol object howa formule tmathel des distances.<br>
 				Kol objet yaƐtina distance(float) binnesba l'position eli naƐaddiwhelou.
 			</p>
-			<div id="glsl-code">
 				<p>
 					Example bech n'ajoutiew sphere lel scene:
 				</p>
-				<div id="highlighterMainDiv_27044" class="syntaxhighlighter nogutter cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>&nbsp;</td></tr><tr><td id="codeContainer_27044" class="code"><div id="container_27044" class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">float</code> <code class="cpp plain">sceneSDF(vec3 p)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">sdSphere(p);</code></div><div class="line number4 index3 alt1"><code class="cpp plain">}</code></div></div></td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table></div>
-			</div>
+				<pre><code><type>float</type> <fn>sceneSDF</fn>(<type>vec3</type> p)
+ {
+	<keyword>return</keyword> <fn>sdSphere</fn>(p);
+ }
+</code></pre>
 			<p>
 				Fama ħaja essemha "SDF operators" eli heya tkhallina nzidou akthar men object weħed lel scene.<br>
 				Bech nfasrouhom baƐd ama tnajem telq̈a el objects w'el operators el'kol 
@@ -87,19 +116,22 @@
 			</div>
 		<div class="section">
 			<h2>Sphere</h2>
-			<div id="glsl-code">
 				<p>
 					Hedhi el Sphere function:<br>
 				</p>
-				<div id="highlighterMainDiv_354674" class="syntaxhighlighter nogutter cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>&nbsp;</td></tr><tr><td id="codeContainer_354674" class="code"><div id="container_354674" class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">float</code> <code class="cpp plain">sdSphere(vec3 p)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">length(p) - 1.;</code></div><div class="line number4 index3 alt1"><code class="cpp plain">}</code></div></div></td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table></div>
-			</div>
-			<p></p>
-			<div id="glsl-code">
+				<pre><code><type>float</type> <fn>sdSphere</fn>(<type>vec3</type> p)
+ {
+	<keyword>return</keyword> <fn>length</fn>(p) - 1.;
+ }</code></pre>
 				<p>
 					Kobr el sphere "1.0" f'hal example.<br>
 					Ken nħebbou n'akhtarou el size, nƐaddiwah comme parameter, kima hak:<br>
 				</p>
-				<div id="highlighterMainDiv_126387" class="syntaxhighlighter nogutter cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>&nbsp;</td></tr><tr><td id="codeContainer_126387" class="code"><div id="container_126387" class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">float</code> <code class="cpp plain">sdSphere(vec3 p, </code><code class="cpp color1 bold">float</code> <code class="cpp plain">size)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">length(p) - size;</code></div><div class="line number4 index3 alt1"><code class="cpp plain">}</code></div></div></td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table></div>
+				<pre><code><type>float</type> <fn>sdSphere</fn>(<type>vec3</type> p, <type>float</type> size)
+ {
+	<keyword>return</keyword> <fn>length</fn>(p) - size;
+ }</code></pre>
+
 				<p>
 					Tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
 				</p>
@@ -108,7 +140,6 @@
 						<img src="./images/rendering_sdf_basics_002.png" alt="rendering_sdf_basics_002">
 					</a>
 				</div>
-			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
