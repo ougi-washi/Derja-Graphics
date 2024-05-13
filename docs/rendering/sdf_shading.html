@@ -133,7 +133,7 @@
 				NaƐtiw couleur lel objet w lel dhaw separé.<br>
 			</p>
 			<p>
-				1. Awel ħaja, ndawrou el dhaw chwaya (de préférence n'normaliziw el vecteur bech dima ykoun bin 1.0 w 0.0):
+				1. Awel ħaja, ndawrou el dhaw chwaya (de préférence n'normaliziw el vecteur bech dima ykoun bin 1.0 w 0.0)
 			</p>
 			<pre><code><comment>// Hedha kifeh kén</comment>
 <type>vec3</type> <variable>lightDirection</variable> = <type>vec3</type>(1, 1, 0.0);</code></pre>
@@ -143,16 +143,54 @@
 				<img src="./images/rendering_sdf_basics_007.png" alt="rendering_sdf_basics_007" title="diizoolé matnajemch tenzel Ɛliha hedhi">
 			</div>
 			<p>
-				2. Taw naƐtiw couleur lel objet, couleur lel diffuse light w couleur lel ambient light.<br>
+				2. NaƐtiw couleur lel diffuse light.<br>
 				M'el mostaħsan nkharjou el dot product separé, khater fama chance bech nestaƐmlouha fi d'autres parties.<br>
 				F'el graphics, "dot product bin el direction mtaƐ el dhaw w'el normal" Ɛand'ha esm: <code>"NormalDotLight"</code> wela <code>"ndl"</code><br>
 			</p>
 			<pre><code><comment>// Juste baddelna l'esm</comment>
 <type>float</type> <variable>ndl</variable> = <fn>dot</fn>(<variable>normalVector</variable>, <variable>lightDirection</variable>);</code></pre>
 			<p>
-				Nbadlou esm el <code>"lightDirection"</code> zeda w nriddouh el terme technique <code>"diffuseLight"</code>.<br>
+				Nbadlou esm el <code>"lightShading"</code> zeda w nriddouh el terme technique <code>"diffuseLight"</code>.<br>
 				En plus, taw bech nwalliw nestaƐmlou el variable el jdida <code>"ndl"</code>.
 			</p>
+			<pre><code><type>float</type> <variable>diffuseLight</variable> = <fn>max</fn>(0.0, <variable>ndl</variable>);</code></pre>
+			<p>
+				Puisque nħebbou el dhaw b'el couleur lezem ywalli <code><type>vec3(R, G, B)</type></code> fi Ɛoudh <code><type>float</type></code>.
+				<br>
+			</p>
+			<pre><code><comment>// Nakhtarou dhaw mestazraq chwaya</comment>
+ <type>vec3</type> <variable>diffuseLightColor</variable> = <type>vec3</type>(0.75, 0.75, 1.0);
+
+ <comment>// Donc n'estaƐmlou max(x, y) houni bech tkoun el valeur minimale 0, moch aqal</comment>
+ <type>vec3</type> <variable>diffuseLight</variable> = <fn>max</fn>(0.0, <variable>ndl</variable>) * <variable>diffuseLightColor</variable>;</code></pre>
+			<div class="image-container">
+				<img src="./images/rendering_sdf_basics_008.png" alt="rendering_sdf_basics_008">
+			</div>
+			<p>
+				3. NaƐtiw couleur lel ambient light.<br>
+				Kifkif, bech nestaƐmlou <code><type>vec3(R, G, B)</type></code> fi Ɛoudh <code><type>float</type></code>.
+			</p>
+			<pre><code><type>vec3</type> <variable>ambientLight</variable> = <fn>vec3</fn>(0.08, 0.08, 0.1);</code></pre>
+			<div class="image-container">
+				<img src="./images/rendering_sdf_basics_009.png" alt="rendering_sdf_basics_009">
+			</div>
+			<p>
+				4. NaƐtiw couleur lel objet.<br>
+			</p>
+			<pre><code><comment>// Couleur l'objet: qazwardi</comment>
+<type>vec3</type> <variable>objectColor</variable> = <fn>vec3</fn>(1., 0.75, 0.6);
+
+<comment>// NejmƐou el dhaw mƐa baƐdhou</comment>
+<type>vec3</type> <variable>lightColor</variable> = <variable>diffuseLight</variable> + <variable>ambientLight</variable>;
+
+<comment>// Neħsbou el couleur finale</comment>
+<type>vec3</type> <variable>finalColor</variable> = <variable>objectColor</variable> * <variable>lightColor</variable>;</code></pre>
+			<p>
+				Voilà! hedha el resultat mtaƐ couleur l'objet b'el effet mtaƐ el dhaw.
+			</p>	
+			<div class="image-container">
+				<img src="./images/rendering_sdf_basics_010.png" alt="rendering_sdf_basics_010">
+			</div>
 		</div>
 		<div class="section">
 			<h2>Specular light</h2>
@@ -160,7 +198,7 @@
 				Taw el sphere wadh'ħa w tnajem tq̈oul mafamech mochkel, ama todh'ħer plastique chwaya w neq̈sa lamƐa.<br>
 			</p>
 			<p>
-				Enzel Ɛal taswira w jarrab el code, ma tefhem ken mat'fassed'ha w tsallaħ'ha!
+				Enzel Ɛal taswira w jarrab el code, ma tefhem ken mat'fassed w tsallaħ waħdek!
 			</p>
 			<div class="image-container">
 				<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
