@@ -109,7 +109,7 @@
 		<div class="section">
 			<h2>Ambient light</h2>
 			<p>
-				Houwa sħiiħ ennajmou nchoufou el sphere dhawya taw, ama t'ħessha dhalma barcha m'el jiha lokhra.
+				Houwa sħiiħ ennajmou nchoufou el sphere dhawya taw, ama t'ħessha dhalma barcha m'el jiha lokhra, w'el ambient light heya el ħal houni:
 			</p>
 			<pre><code><comment>// Nzidou el ambient light</comment>
 <type>float</type> <variable>ambientLight</variable> = 0.1;
@@ -117,6 +117,49 @@
 				
 			<p>
 				Enzel Ɛal taswira ken t'ħeb tbaddel el code.
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_006.png" alt="rendering_sdf_basics_006">
+				</a>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Couleur el objet w'el dhaw</h2>
+			<p>
+				Bech ykoun l'impact mtaƐ el dhaw Ɛal objet wadhaħ, madhabina ndawrou el dhaw chwaya w nbadlou el couleurèt.<br>
+				NaƐtiw couleur lel objet w lel dhaw separé.<br>
+			</p>
+			<p>
+				1. Awel ħaja, ndawrou el dhaw chwaya (de préférence n'normaliziw el vecteur bech dima ykoun bin 1.0 w 0.0):
+			</p>
+			<pre><code><comment>// Hedha kifeh kén</comment>
+<type>vec3</type> <variable>lightDirection</variable> = <type>vec3</type>(1, 1, 0.0);</code></pre>
+			<pre><code><comment>// W hedha kifeh walla</comment>
+<type>vec3</type> <variable>lightDirection</variable> = <fn>normalize</fn>(<type>vec3</type>(1, 1, 0.8));</code></pre>
+			<div class="image-container">
+				<img src="./images/rendering_sdf_basics_007.png" alt="rendering_sdf_basics_007" title="diizoolé matnajemch tenzel Ɛliha hedhi">
+			</div>
+			<p>
+				2. Taw naƐtiw couleur lel objet, couleur lel diffuse light w couleur lel ambient light.<br>
+				M'el mostaħsan nkharjou el dot product separé, khater fama chance bech nestaƐmlouha fi d'autres parties.<br>
+				F'el graphics, "dot product bin el direction mtaƐ el dhaw w'el normal" Ɛand'ha esm: <code>"NormalDotLight"</code> wela <code>"ndl"</code><br>
+			</p>
+			<pre><code><comment>// Juste baddelna l'esm</comment>
+<type>float</type> <variable>ndl</variable> = <fn>dot</fn>(<variable>normalVector</variable>, <variable>lightDirection</variable>);</code></pre>
+			<p>
+				Nbadlou esm el <code>"lightDirection"</code> zeda w nriddouh el terme technique <code>"diffuseLight"</code>.<br>
+				En plus, taw bech nwalliw nestaƐmlou el variable el jdida <code>"ndl"</code>.
+
+			</p>
+		</div>
+		<div class="section">
+			<h2>Specular light</h2>
+			<p>
+				Taw el sphere wadh'ħa w tnajem tq̈oul mafamech mochkel, ama todh'ħer plastique chwaya w neq̈sa lamƐa.<br>
+			</p>
+			<p>
+				Enzel Ɛal taswira w jarrab el code, ma tefhem ken mat'fassed'ha w tsallaħ'ha!
 			</p>
 			<div class="image-container">
 				<a href="https://www.shadertoy.com/view/4cGSR3" target="_blank" title="Shadertoy link">
