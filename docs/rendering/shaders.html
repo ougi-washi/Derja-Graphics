@@ -39,9 +39,8 @@
 			<p>
 				Generalement, el shaders mostaƐmlin win nest'ħaq̈ou n'processiw barcha des données(data) fard waq̈t.<br>
 				Mathalan:<br>
-				- <a href="https://en.wikipedia.org/wiki/Computer_graphics" target="_blank">Computer Graphics</a>(Games,
-				Movies,
-				etc.)<br>
+				- <a href="https://en.wikipedia.org/wiki/Computer_graphics" target="_blank">Computer Graphics</a>
+				(Games, Movies, etc.)<br>
 				- <a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank">Machine Learning</a><br>
 			</p>
 		</div>
@@ -68,8 +67,14 @@
 				n'testiw el pixel/fragment shaders (eli y't'executew Ɛla kol pixela).
 				Example:<br>
 				<pre><code><variable>fragColor</variable> = <type>vec4</type>(0.5, 0.1, 0.8, 0.0);</code></pre>
-				<iframe width="320" height="240" frameborder="0"
-					src="https://www.shadertoy.com/embed/Mf3SzS?gui=false&t=10&paused=true&muted=false"></iframe>
+				<p>
+					Enzel Ɛal taswira bech t'ħel ShaderToy w jarrab el code, baddél el couleur:
+				</p>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/Mf3SzS" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_001.png" alt="rendering_shader_001">
+					</a>
+				</div>
 			</p>
 			<p>
 
@@ -88,9 +93,12 @@
 				Example:<br>
 				<pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
  <variable>fragColor</variable> = <type>vec4</type>(<variable>normalizedCoord</variable>, 0.0, 1.0);</code></pre>
-					
-				<iframe width="320" height="240" frameborder="0"
-					src="https://www.shadertoy.com/embed/XcdSzs?gui=false&t=10&paused=true&muted=false"></iframe>
+				<p>Enzel w jarrab, ken t'ħeb</p>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/XcdSzs" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_002.png" alt="rendering_shader_002">
+					</a>
+				</div>
 			<p>
 				Fel cas hedha, naq̈smou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1 (estaƐmelna <code>iResolution</code>, eli mawjouda par defaut fi ShaderToy).<br>
 				Yomken leħedht elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs khater el écran
@@ -103,13 +111,21 @@
 				<pre><code><comment>// Red</comment>
 <type>float</type> <variable>uvX</variable> = <variable>fragCoord</variable>.x / <variable>iResolution</variable>.x;
 <variable>fragColor</variable> = <type>vec4</type>(<variable>uvX</variable>, 0.0, 0.0, 0.0);</code></pre>
-				<iframe width="240" height="180" frameborder="0"
-					src="https://www.shadertoy.com/embed/lfcSWS?gui=false&t=10&paused=true&muted=false"></iframe>
+				<p>Enzel w jarrab, ken t'ħeb</p>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/lfcSWS" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_003.png" alt="rendering_shader_003">
+					</a>
+				</div>
 				<pre><code><comment>// Green</comment>
 <type>float</type> <variable>uvY</variable> = <variable>fragCoord</variable>.y / <variable>iResolution</variable>.y;
 <variable>fragColor</variable> = <type>vec4</type>(0.0, <variable>uvY</variable>, 0.0, 0.0);</code></pre>
-				<iframe width="240" height="180" frameborder="0"
-					src="https://www.shadertoy.com/embed/lc3XWS?gui=false&t=10&paused=true&muted=false"></iframe>
+				<p>Enzel w jarrab, ken t'ħeb</p>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/lc3XWS" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_004.png" alt="rendering_shader_004">
+					</a>
+				</div>
 			<p>
 				Puisque Ɛandna el position mteƐ kol pixela, ennajmou nsawrou el fourma eli nħebbou Ɛliha.<br>
 				Par example, bech nsawrou circle, nestħaq̈ou nq̈arnou el distance ma bin el circle w position el pixela.
@@ -117,25 +133,28 @@
 <pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
 <type>float</type> <variable>circleMask</variable> = <fn>distance</fn>(<variable>normalizedCoord</variable>, <type>vec2</type>(0.5, 0.5));
 <variable>fragColor</variable> = <type>vec4</type>(<variable>circleMask</variable>, 0.0, 0.0, 0.0);</code></pre>					
-				<iframe width="320" height="240" frameborder="0"
-					src="https://www.shadertoy.com/embed/4cdSWS?gui=false&t=10&paused=true&muted=false"></iframe>
-			</p>
+				<p>Enzel w jarrab, ken t'ħeb</p>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/4cdSWS" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_005.png" alt="rendering_shader_005">
+					</a>
+				</div>
 			<p>
-				Voilà, nekhdhou el <code>normalizedCoord</code> w n'thabtou el distance mƐa l'centre <code>vec2(0.5, 0.5)</code>.<br>
-				Hakka ywalli Ɛandna gradient yebda m'el centre, samminéh <code>circleMask</code>, w ħattineh f'el fragColor (Red).
-				mazelou 2 étapes neq̈sin:<br>
-				- n'invertiw el couleurs: <code>x = 1 - x</code><br>
-				- nestaƐmlou step function bech ngeddou limite lel circle mteƐna. El gradient mayseƐednech houni, ma'najmouch nchoufou el chfar(edge) mteƐ el circle.<br>
-				Example:
+				Voilà, nekhdhou el <code>normalizedCoord</code> w n'thabtou el distance mƐa l'centre <code><type>vec2</type>(0.5, 0.5)</code>.<br>
+				Hakka ywalli Ɛandna gradient yebda m'el centre, samminéh <code>circleMask</code>, w ħattineh f'el fragColor (Red).<br><br>
+				Taw nestaƐmlou step function bech ngeddou limite lel circle mteƐna. El gradient mayseƐednech houni, ma'najmouch nchoufou el chfar(edge) mteƐ el circle:<br>
 			</p>
 
 				<pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
- <comment>// l'etape loula: inversion (circleMask = 1 - circleMask)</comment>
- <type>float</type> <variable>circleMask</variable> = 1.0 - <fn>distance</fn>(<variable>normalizedCoord</variable>, <type>vec2</type>(0.5, 0.5));
- <comment>// l'etape e'thenya: limite lel circle (step function)</comment>
+ <type>float</type> <variable>circleMask</variable> = <fn>distance</fn>(<variable>normalizedCoord</variable>, <type>vec2</type>(0.5, 0.5));
+ <comment>// Limite l'el circle (step function)</comment>
  <variable>circleMask</variable> = <fn>step</fn>(0.5, <variable>circleMask</variable>);</code></pre>
-				<iframe width="320" height="240" frameborder="0"
-					src="https://www.shadertoy.com/embed/XctXWB?gui=false&t=10&paused=true&muted=false"></iframe>
+				<p>Enzel w jarrab baddel el step function arguments, ken t'ħeb tbaddel kobr el circle.</p>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/XctXWB" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_006.png" alt="rendering_shader_006">
+					</a>
+				</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
