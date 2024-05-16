@@ -42,6 +42,7 @@
 				- <a href="https://en.wikipedia.org/wiki/Computer_graphics" target="_blank">Computer Graphics</a>
 				(Games, Movies, etc.)<br>
 				- <a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank">Machine Learning</a><br>
+				- <a href="https://en.wikipedia.org/wiki/Digital_image_processing" target="_blank">Image Processing</a>
 			</p>
 		</div>
 		<div class="section">
@@ -77,7 +78,6 @@
 				</div>
 			</p>
 			<p>
-
 				Kima tchouf, fel cas hedha, Ɛand'na code simple yħawel el pixelét mauve.<br>
 				El execution bech tsir Ɛla kol pixela/fragment.<br>
 				Deja kima tleħdhou, el color variable essemha <code>fragColor</code>(vec4: fiha 4 valeurat):<br>
@@ -85,12 +85,17 @@
 				- G: Green (fel example hedha = 0.1 Ɛla 1.0)<br>
 				- B: Blue (fel example hedha = 0.8 Ɛla 1.0)<br>
 				- A: Alpha (généralement lel transparency/opacity, ama moch mostaƐmla houni)<br>
-				Ken nħottou el valeurat el kol 1.0; yjina loun abyadh.<br><br>
-				Bech ennajmou nsawrou achkél, lezem nakhtarou el position.<br>
+				Ken nħottou el valeurat el kol 1.0; yjina loun abyadh.<br>
+			</p>
+			<p>
+				Bech ennajmou nsawrou achkél(shapes), lezem nakhtarou el position.<br>
 				Ɛanna el possibilité bech naƐrfou el position mteƐ kol pixela, b'esteƐmèl l'<a
 					href="https://en.wikipedia.org/wiki/UV_mapping" , target="_blank">UVs</a>,
-				eli houma el coordonnées mteƐ el pixela fel ecran.<br>
-				Example:<br>
+				eli houma el coordonnées mteƐ el pixela fel écran.<br>
+
+				Bech naƐrfou data Ɛal écran, yelzem nƐaddiw el data hedhi m'el CPU l'el GPU.
+				El data hedhi essemha <code>"uniform"</code>.<br>
+				Aya data tetƐadda m'el CPU(RAM) l'el GPU(Video RAM) essemha <code>"uniform"</code>.
 				<pre><code><type>vec2</type> <variable>normalizedCoord</variable> = <variable>fragCoord</variable> / <variable>iResolution</variable>.<variable>xy</variable>;
  <variable>fragColor</variable> = <type>vec4</type>(<variable>normalizedCoord</variable>, 0.0, 1.0);</code></pre>
 				<p>Enzel w jarrab, ken t'ħeb</p>
@@ -99,6 +104,7 @@
 						<img src="./images/rendering_shader_002.png" alt="rendering_shader_002">
 					</a>
 				</div>
+			</p>
 			<p>
 				Fel cas hedha, naq̈smou el coordonnées mteƐ el pixels Ɛla l'resolution bech nchoufou valeur binét 0 w 1 (estaƐmelna <code>iResolution</code>, eli mawjouda par defaut fi ShaderToy).<br>
 				Yomken leħedht elli el'type mteƐ el'fragCoord houwa <code>vec2</code> (fih 2 valeurs khater el écran
@@ -155,6 +161,47 @@
 						<img src="./images/rendering_shader_006.png" alt="rendering_shader_006">
 					</a>
 				</div>
+		</div>
+		<div class="section">
+			<h2>Uniforms</h2>
+			<p>
+				Kima rina l'example, uniforms houma variables/data nebƐthouhom m'el CPU l'el GPU, w bech nkoun précis, m'el RAM l'el VRAM(Video RAM).<br>
+				L'implementation mtaƐ l'uniforms tetbaddel ħasb l'engine, shader language, tools, etc...<br>
+				F'el cas mteƐna, nestaƐmlou ShaderToy bech netƐalmou el shaders. Ki tenzel Ɛla <a href="https://www.shadertoy.com/new" target="_blank">new f'el site</a>, 
+				telq̈a <code>"Shader Inputs"</code>:
+			</p>
+<pre><code>	<keyword>uniform</keyword> <type>vec3</type> 		iResolution;           <comment>// viewport resolution (in pixels)</comment>
+	<keyword>uniform</keyword> <type>float</type>		iTime;                 <comment>// shader playback time (in seconds)</comment>
+	<keyword>uniform</keyword> <type>float</type>		iTimeDelta;            <comment>// render time (in seconds)</comment>
+	<keyword>uniform</keyword> <type>float</type>    	iFrameRate;            <comment>// shader frame rate</comment>
+	<keyword>uniform</keyword> <type>int</type>       	iFrame;                <comment>// shader playback frame</comment>
+	<keyword>uniform</keyword> <type>float</type>     	iChannelTime[4];       <comment>// channel playback time (in seconds)</comment>
+	<keyword>uniform</keyword> <type>vec3</type>      	iChannelResolution[4]; <comment>// channel resolution (in pixels)</comment>
+	<keyword>uniform</keyword> <type>vec4</type>      	iMouse;                <comment>// mouse pixel coords. xy: current (if MLB down), zw: click</comment>
+	<keyword>uniform</keyword> <type>samplerXX</type> 	iChannel0..3;          <comment>// input channel. XX = 2D/Cube</comment>
+	<keyword>uniform</keyword> <type>vec4</type>      	iDate;                 <comment>// (year, month, day, time in seconds)</comment>
+	<keyword>uniform</keyword> <type>float</type>     	iSampleRate;           <comment>// sound sample rate (i.e., 44100)</comment></code></pre>
+			<p>
+				Hedhouma el variables el kol ennajmou nestaƐmlouhom f'el code mteƐna bech nbadlou el behavior mteƐ el shader.
+				Fha'l example, q̈eƐid nħarrak f'el sphere b'el souris (nestaƐmel fi <code>iMouse</code> uniform). Enzel Ɛal  taswira ken t'ħeb tjarrab el code.
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/lcVSW3" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_007.gif" alt="rendering_shader_007">
+				</a>
+			</div>
+			<p>
+				Mafaméch ken iMouse, w iResolution. Famma zeda iTime bech nbadlou el shader bel waq̈t.
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/new" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_shader_008.gif" alt="rendering_shader_008">
+					</a>
+				</div>
+			</p>
+		</div>
+		<div class="section">
+			<h2>Curves</h2>
+
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
