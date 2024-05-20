@@ -200,8 +200,73 @@
 			</p>
 		</div>
 		<div class="section">
-			<h2>Curves</h2>
-
+			<h2>Fourmét</h2>
+			<p>
+				Taw jarrabna sawwarna sphere khaterha sehla: neħsbou el distance bin el position mteƐ el pixela w'el centre mteƐ el circle.<br>
+				Bech ennajmou nsawrou fourmét okhrin, yelzemna netƐalmou techniquèt jdod. 
+			</p>
+			<p>
+				Example, bech nsawrou rectangle, yelzem nsawrou 4 stoura. Donc, naƐmlou limite ħasb el UV(normalized coordinates).<br>
+				Madém el value bin 0.0 w 1.0, nħottou el limite 0.2 par example Ɛal <code>X</code> w'el <code>Y</code>:
+			</p>
+<pre><code><comment>// NestaƐmlou "step(x,y)" bech naƐmlou limite m'el x = vec2(0.2, 0.2)</comment>
+ <type>vec2</type> borders = <fn>step</fn>(<type>vec2</type>(0.2), uv);
+    
+ <comment>// Nedherbouhom fi bƐadh'hom bech ywalliw black</comment>
+ <type>float</type> boxMask = borders.x * borders.y;</code></pre>
+			<p>Enzel w jarrab:</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/l3dGR4" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_009.png" alt="rendering_shader_009">
+				</a>
+			</div>
+			<p>
+				Kima tchouf houni, staƐmelna <code><fn>step</fn>(edge, x)</code> l'el <code>UV</code>, eli heya el normalized coordinates.<br>
+				Note: Barcha functionèt f'el GLSL Ɛand'hom barcha versionèt, kima:
+			</p>
+			<pre><code><type>float</type>	<fn>step</fn>(<type>float</type> edge, <type>float</type> x);
+ <type>vec2</type>	<fn>step</fn>(<type>vec2</type> edge, <type>vec2</type> x);
+ <type>vec3</type>	<fn>step</fn>(<type>vec3</type> edge, <type>vec3</type> x);
+ <type>vec4</type>	<fn>step</fn>(<type>vec4</type> edge, <type>vec4</type> x);</code></pre>
+			<p>
+				Hedha applicable l'aghlabiyét el functionèt el mawjoudin par default f'el GLSL w el HLSL.
+			</p>
+			<p>
+				Taw ken nħebbou nkamlou el rectangle, yelzem naƐmlou nafs el ħaja ama m'el jiha l'okhra.<br>
+				Ennajmou neq̈lbou el usage mteƐ <code>"<fn>step</fn>(x,y)"</code> kima hak:
+			</p>
+			<pre><code><fn>step</fn>(uv, <type>vec2</type>(0.8));</code></pre>
+			<p>
+				Fi Ɛoudh
+			</p>
+			<pre><code><fn>step</fn>(<type>vec2</type>(0.2), uv);</code></pre>
+			<p>
+				W ki nedherbouhom fi bƐadh'hom yaƐtiwna el resultat hedha: (enzel w jarrab)
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/lXd3z4" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_010.png" alt="rendering_shader_010">
+				</a>
+			</div>
+			<p>
+				Ennajmou nestaƐmlou <code><fn>smoothstep</fn>(edge0, edge1, x)</code> fi Ɛoudh <code><fn>step</fn>(edge, x)</code> bech ywali Ɛandna gradient effect.
+			</p>
+			<p>
+				F'el coin louwel, naƐmlou gradient m'el 0.0 l'el 0.2:
+			</p>
+			<pre><code><fn>smoothstep</fn>(<type>vec2</type>(0.0), <type>vec2</type>(0.2), uv);</code></pre>
+			<p>
+				F'el coin theni, naƐmlou gradient m'el 0.8 l'el 1.0: 
+			</p>
+			<pre><code><fn>smoothstep</fn>(<type>vec2</type>(0.8), <type>vec2</type>(1.0), uv);</code></pre>
+			<p>
+				Nedherbouhom fi bƐadh'om w voilà! (tnajjem tenzel w tjarrab el code)
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M3dGRN" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_011.png" alt="rendering_shader_011">
+				</a>
+			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
