@@ -267,12 +267,33 @@
 					<img src="./images/rendering_shader_011.png" alt="rendering_shader_011">
 				</a>
 			</div>
+			<p>
+				Ennajmou n'controlliw el UV bech naƐmlou cool effects.
+				Example: bech nbadlou kobr el box mteƐna, juste nedherbou el uv fi value (4.0 f'hal example).
+			</p>
+			<pre><code>uv = uv * 4.0;</code></pre>
+			<div class="image-container">
+				<img src="./images/rendering_shader_012.png" alt="rendering_shader_012">
+			</div>
+			<p>
+				Ken nħebbou nƐawdouh barcha marràt, nejmou nestaƐmlou <code><fn>fract</fn>(x)</code>. (enzel Ɛal taswira bech tchouf el code)
+			</p>
+			<pre><code>uv = <fn>fract</fn>(uv * 32.0);</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/l3d3zN" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_013.png" alt="rendering_shader_013">
+				</a>
+			</div>
+			<p>
+				<code><fn>fract</fn>(x)</code> tƐawéd el UV kol marra youssel l'el value 1.0. Donc ki nedhrbou el UV fi value Ɛalya, yetƐawéd barcha marràt (32 marra f'el situation hedhi).
+			</p>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
 			<p>
 				Hedhiya el base mteƐ el pixel shaders.<br>
-				Fama barcha methods w techniques, telq̈ahom fi partiyét okhriin.
+				Fama barcha methods w techniquèt okhrin netƐalmouhom mƐa bƐadhna f'el partiyét el jéyin.<br>
+				Sinon, ken tħeb, aƐmel talla Ɛal site hedha: <a href="https://thebookofshaders.com/" target="_blank">The Book of Shaders</a>, fih barcha couràt.
 			</p>
 		</div>
 		<div>
