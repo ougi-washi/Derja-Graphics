@@ -287,6 +287,66 @@
 			<p>
 				<code><fn>fract</fn>(x)</code> tƐawéd el UV kol marra youssel l'el value 1.0. Donc ki nedhrbou el UV fi value Ɛalya, yetƐawéd barcha marràt (32 marra f'el situation hedhi).
 			</p>
+			<p>
+				Fama mochkel sghir w howa eli mahomch squares(carrés), plutôt rectangle. Bech nsalħouha, yelzem nzidou <code><fn>max</fn>()</code> l'el resolution bech neħsbou el UV b'el s'ħih magheir ma yhémna el display.<br>
+				Donc el calcul mteƐ el UV ywalli hak:
+			</p>
+			<pre><code><type>vec2</type> uv = fragCoord / <fn>max</fn>(iResolution.x, iResolution.y);</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M3d3z7" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_014.png" alt="rendering_shader_014">
+				</a>
+			</div>
+			<p>
+				Taw nħebbou nzidou circle f'el west donc l'étape loula, nħadhrou el uv l'el circle (bech ma yetjabbédch ħasb el écran zeda).
+			</p>
+			<pre><code> <comment>// Puisque el ratio mech 1:1, lezem ntalƐouha</comment>
+ <type>vec2</type> ratio = <type>vec2</type>(1.0, iResolution.y / iResolution.x);
+ <type>vec2</type> center = ratio / <type>vec2</type>(2.0, 2.0);
+ <type>vec2</type> uv_center = uv - center;</code></pre>
+			<p>
+				Hakka ywalli Ɛandna normalized coordinates w mafihomch ħatta stretch. En plus, ħadharna el center UV, bech el sphere mteƐna tetsawwar f'el west.<br>
+				L'étape el thénya, nzidou el circle mask w nzidouha l'el final color.
+			</p>
+			<pre><code><comment>// Nħadhrou el circle</comment>
+ <type>float</type> circleMask = <fn>length</fn>(uv_center);
+
+ <comment>// ...</comment>
+
+ <comment>// NestaƐmlou el uv_center l'el boxMask zeda</comment>
+ <type>vec2</type> uv_box = <fn>fract</fn>(uv_center * 32.0);
+
+ <comment>// ...</comment>
+ 
+ <comment>// Nħottou el boxMask f'el RED channel w'el circleMask f'el GREEN channel</comment>
+ fragColor = <type>vec4</type>(boxMask, circleMask, 0.0, 0.0);</code></pre>
+			<p>
+				Enzel w jarrab el code!
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/4X3GWn" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_015.png" alt="rendering_shader_015">
+				</a>
+			</div>
+			<p>
+				ennajmou naƐmlou reptition l'el circles ken nestaƐmlou <code><fn>fract</fn>()</code> kima el q̈bal.
+			</p>
+			<pre><code><type>float</type> circleMask = <fn>fract</fn>(<fn>length</fn>(uv_center) * 4.0);</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/43cGWn" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_016.png" alt="rendering_shader_016">
+				</a>
+			</div>
+			<p>
+				Taw ken nħebbou nħarkou el circles, juste nestaƐmlou <code>"iTime"</code> (que ce soit nzidouh wela ennaq̈souh, ça dépend m'el direction eli nħebbou Ɛliha).
+			</p>
+			<pre><code><type>float</type> circleMask = <fn>fract</fn>(<fn>length</fn>(uv_center) * 4.0 - iTime);</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/X3cGDn" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_shader_017.gif" alt="rendering_shader_017">
+				</a>
+			</div>
+
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
