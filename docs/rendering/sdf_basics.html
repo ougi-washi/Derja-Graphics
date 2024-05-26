@@ -248,8 +248,20 @@ p = p * rotationMatrix;</code></pre>
 		<div class="section">
 			<h2>Scale</h2>
 			<p>
-				Finally, el scale... WIP 
+				Finally, el takbiir w'el tasghiir.<br>
+				Fi engine Ɛadi, l'implementation mtaƐ el scale sehla: Juste nbadlou values f'el transform matrix.<br>
+				Par contre, f'el SDF, yelzem naq̈smou <code>p / scale</code> w nedhrbou el sdf kemla f'el <code>scale</code>:
 			</p>
+			<pre><code><comment>// Nħottou el scale yetzed w yonq̈os ħasb el waq̈t</comment>
+<type>float</type> scale = <fn>abs</fn>(<fn>sin</fn>(iTime));
+
+<comment>// Nedhrbou f'el ray position w naq̈smou</comment>
+<keyword>return</keyword> <fn>sdSphere</fn>(p / scale) * scale;</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M33Gzj" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_0024.gif" alt="rendering_sdf_basics_0024" title="dawwar dawwar chay mat'sawwar">
+				</a>
+			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
