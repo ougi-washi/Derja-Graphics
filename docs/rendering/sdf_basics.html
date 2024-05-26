@@ -131,7 +131,6 @@
  {
 	<keyword>return</keyword> <fn>length</fn>(p) - size;
  }</code></pre>
-
 				<p>
 					Tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
 				</p>
@@ -140,6 +139,117 @@
 						<img src="./images/rendering_sdf_basics_002.png" alt="rendering_sdf_basics_002">
 					</a>
 				</div>
+		</div>
+		<div class="section">
+			<h2>Transform</h2>
+			<p>
+				El transform heya el transformation eli bech tsiir l'el objet proportionellement l'el scene.<br>
+				YaƐni kifeh nħarkou el objet mteƐna. Généralement el transform fiha 3 modifications ysiirou Ɛal objet:<br>
+				- Location (el position mtaƐ l'objet f'el scene)<br>
+				- Rotation<br>
+				- Scale (Kobr el object f'el scene)<br>
+				Généralement, ki testaƐmel engine, bech telq̈a el transform en tant que structure men 3 vectors.<br> 
+				Kol vector fih 3 values: <code>Location(x, y, z)</code>, <code>Rotation(x, y ,z)</code>, <code>Scale(x, y, z)</code>.<br>
+				F'el 3D famma 3 axes, donc:<br>
+				- Location: yħot el object yetzaħlaq̈ Ɛla axe (axis) specifique.<br>
+				- Rotation: yħot el object ydour Ɛla axe (axis) specifique.<br>
+				- Scale: yħot el object yekber ħasb axe (axis) specifique.<br>
+			</p>
+		</div>
+		<div class="section">
+			<h2>Location</h2>
+			<p>
+				Binnesba l'el location, kima fassarna, heya Ɛibara Ɛla offset l'el position actuelle mtaƐ el sphere.<br>
+				Donc bech nħarkou el sphere, yelzem nzidou wela ennaq̈sou values m'el position mtaƐ el ray.
+			</p>
+			<pre><code><type>float</type> <fn>sceneSDF</fn>(<type>vec3</type> p)
+ {
+	<comment>// Nħadhrou el offset mteƐna. F'el cas hedha, nzaħlq̈ouha Ɛal Y-axis</comment>
+	<type>vec3</type> offsetPos = <fn>vec3</fn>(0.0, <fn>cos</fn>(iTime), 0.0);
+	p = p + offsetPos;
+	<keyword>return</keyword> <fn>sdSphere</fn>(p);
+ }</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/X33Gz2" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_0021.gif" alt="rendering_sdf_basics_0021">
+				</a>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Rotation</h2>
+			<p>
+				l'el rotation, yosƐeb chwayya bech nchoufouha puisque el sphere Ɛand'ha nafs el mandhar m'el jihét el kol.<br>
+				Donc ennajmou nestaƐmlou texture uniform, win naƐtiw l'el shader texture, w baƐd, nestaƐmlou el texture bech nbadlou el shape mtaƐ el sphere. 
+			</p>
+			<pre><code><type>float</type> sceneSDF(<type>vec3</type> p)
+ {
+	<comment>// Nzidou texture fel iChannel0, w nsampliwha b' XY mtaƐ position el ray</comment>
+	<type>vec3</type> textureMask = <fn>texture</fn>(iChannel0, p.xy).xyz;
+
+	<comment>// Nraq̈Ɛouh chwaya (ennaq̈sou f'el intensity w n'invertiw el mask b technique "1-x")</comment>
+	textureMask = 1.0 - (textureMask * 0.5);
+
+	<keyword>return</keyword> sdSphere(p * textureMask);
+ }</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/X333z2" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_0022.png" alt="rendering_sdf_basics_0022">
+				</a>
+			</div>
+			<p>
+				Taw ki ennajmou nchoufou el objet mteƐna wadhaħ men kol el jihét, ennajmou ndawrouh.<br>
+				Houwa sħiih todhor el rotation eli heyya juste 3 values, ama f'el ħq̈iiq̈a, hiiya matrice(matrix) 3 par 3 eli nedhrbouha f'el position mteƐna (position mtaƐ el ray houni).<br> 
+				Matkhafech el chay easy peasy, tabbaƐ mƐaya!
+			</p>
+			<p>
+				Bech ennajmou ndawrou el objet mteƐna Ɛal X (ħasb angle nƐaddiwah f'el parameter), il suffit ntalƐou el matrix, w nedhrbouha:
+			</p>
+			<pre><code><type>mat3</type> <fn>rotateX</fn>(<type>float</type> a)
+ {
+	<type>float</type> sa = <fn>sin</fn>(a);
+	<type>float</type> ca = <fn>cos</fn>(a); 
+	<keyword>return</keyword> <type>mat3</type>(<type>vec3</type>(1., .0, .0), <type>vec3</type>(.0, ca, sa), <type>vec3</type>(.0, -sa, ca));
+ }</code></pre>
+			<p>
+				Binnesba l'el Y:
+			</p>
+			<pre><code><type>mat3</type> <fn>rotateY</fn>(<type>float</type> a)
+ {
+ 	<type>float</type> sa = <fn>sin</fn>(a);
+ 	<type>float</type> ca = <fn>cos</fn>(a); 
+ 	<keyword>return</keyword> <type>mat3</type>(<type>vec3</type>(ca, .0, sa), <type>vec3</type>(.0, 1., .0), <type>vec3</type>(-sa, .0, ca));
+ }</code></pre>
+			<p>
+				Wa akhiiran, el Z:
+			</p>
+			<pre><code><type>mat3</type> <fn>rotateZ</fn>(<type>float</type> a)
+ {
+ 	<type>float</type> sa = <fn>sin</fn>(a);
+ 	<type>float</type> ca = <fn>cos</fn>(a); 
+ 	<keyword>return</keyword> <type>mat3</type>(<type>vec3</type>(ca, sa, .0), <type>vec3</type>(-sa, ca, .0), <type>vec3</type>(.0, .0, 1.));
+ }</code></pre>
+			<p>
+				Taw njarbou nedhrbou waħda fihom f'el <code>p</code> w nchoufou el resultat:<br>
+			</p>
+			<pre><code><comment>// Nħadhrou el rotation matrix (ndawrouha ħasb el waq̈t)</comment>
+<type>mat3</type> rotationMatrix = <fn>rotateY</fn>(iTime);
+
+<comment>// Nedhrbou el rotation matrix f'el p</comment>
+p = p * rotationMatrix;</code></pre>
+			<p>
+				(Kima el Ɛada, tnajjem tenzel Ɛal code)
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/l333Rj" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_basics_0023.gif" alt="rendering_sdf_basics_0023" title="dawwar dawwar chay mat'sawwar">
+				</a>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Scale</h2>
+			<p>
+				Finally, el scale... WIP 
+			</p>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
