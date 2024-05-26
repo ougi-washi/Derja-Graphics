@@ -69,8 +69,23 @@
 				</div>
 				<p>
 					Taw Ɛandna el box ama yodh'hor 2D rectangle, puisque m9abel l'el camera.<br>
-					F'el cas hedha, yelzem nħarkou el box mteƐna chwaya.
+					F'el cas hedha, yelzem ndawrou el box mteƐna chwaya. Donc nestaƐmlou eli tƐallamnèh f'el <a href="./sdf_basics.html" target="_blank">SDF basics</a>.
 				</p>
+				<pre><code><type>float</type> <fn>sceneSDF</fn>(<type>vec3</type> p)
+{
+    <type>vec3</type> boxExtent = <type>vec3</type>(1.5, 0.5, 0.5);
+    
+    <comment>// Ndawrou el box Ɛal Y-Axis w'el Z-Axis</comment>
+    p *= <fn>rotateY</fn>(0.6);    
+    p *= <fn>rotateZ</fn>(0.4);
+    
+    <keyword>return</keyword> <fn>sdBox</fn>(p, boxExtent);
+}</code></pre>
+				<div class="image-container">
+					<a href="https://www.shadertoy.com/view/lXc3zj" target="_blank" title="Shadertoy link">
+						<img src="./images/rendering_sdf_primitive_002.png" alt="rendering_sdf_primitive_002">
+					</a>
+				</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
