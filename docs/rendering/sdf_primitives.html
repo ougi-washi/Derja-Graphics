@@ -158,11 +158,34 @@
 					<img src="./images/rendering_sdf_primitive_005.png" alt="rendering_sdf_primitive_005">
 				</a>
 			</div>
+			<p>
+				Ennajmou nzidou chwaya ħweyij m'eli tƐallemnéh, mathalan <code>iTime</code> bech nħarkou el dhaw w'el positionnét mtaƐ l'objects:
+			</p>
+			<p>- Nħarkou el box</p>
+			<pre><code>boxP.y += <fn>sin</fn>(iTime); <comment>// Nzaħlq̈ou el box Ɛal Y-Axis</comment></code></pre>
+			<p>- Nħarkou el sphere</p>
+			<pre><code>sphereP.y += <fn>cos</fn>(iTime); <comment>// Nzaħlq̈ou el sphere Ɛal Y-Axis</comment></code></pre>
+			<p>- Nħarkou el dhaw</p>
+			<pre><code><type>vec3</type> lightDirection = <fn>normalize</fn>(<type>vec3</type>(<fn>cos</fn>(iTime), 1.0, <fn>sin</fn>(iTime)));</comment></code></pre>
+			<p>Tnajjem tenzel Ɛal video w tbalbaz waħdek, zid pyramid wela ay primitive.</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M3d3Rs" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_primitive_006.gif" alt="rendering_sdf_primitive_006">
+				</a>
+			</div>
+		</div>
+		<div class="section">
+			<h2>El kolhom nafs el couleur?</h2>
+			<p>
+				Ih nƐam, hedhi mochkel. el kol Ɛand'hom nafs el couleur.<br>
+				F'el implementation mteƐna, neħsbou el distances l'el shapes, w baƐd nlawnou el scene b nafs el couleur.<br>
+				Bech ennajmou naƐtiw couleurèt moch kifkif, yelzem n'settiw el couleur waq̈t neħsbou el distance.<br>
+				Donc, <code><type>float</type> <fn>sceneSDF</fn>(<type>vec3</type> p)</code> twalli trajƐelna couleur w distance. Ennajmou nħottou el couleur fi 3 values (R, G, B), w'el distance fi 1 value (Alpha).<br>
+				El total houwa 4 values w hakka, el declaration twalli <code><type>vec4</type> <fn>sceneSDF</fn>(<type>vec3</type> p)</code>.
+			</p>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
-			<p>
-			</p>
 		</div>
 		<div>
 			<p>
