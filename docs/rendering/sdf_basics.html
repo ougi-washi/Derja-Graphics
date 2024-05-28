@@ -66,7 +66,7 @@
 				Function mtaƐ el raymarching:<br> 
 			</p>
 			<pre><code><type>float</type> <fn>raymarch</fn>(<type>vec3</type> cameraPosition, <type>vec3</type> cameraDirection)
- {
+{
  	<comment>// N'initializew el depth(profondeur) mtaƐ el ray (houni MIN_DIST = 0)</comment>
  	<type>float</type> depth = MIN_DIST;
  		
@@ -94,7 +94,7 @@
  		
  	<comment>// Une fois kammelna m'el raymarching loop, n'returniew MAX_DIST</comment>
  	<keyword>return</keyword> MAX_DIST;
- }</code></pre>
+}</code></pre>
 			<p>
 				Binnesba lel "sceneSDF", heya juste function elli t'representi el scene mteƐna.<br> 
 				El scene tnajem tkoun 1 object wela barcha objects. Kol object howa formule tmathel des distances.<br>
@@ -104,9 +104,9 @@
 					Example bech n'ajoutiew sphere lel scene:
 				</p>
 				<pre><code><type>float</type> <fn>sceneSDF</fn>(<type>vec3</type> p)
- {
+{
 	<keyword>return</keyword> <fn>sdSphere</fn>(p);
- }
+}
 </code></pre>
 			<p>
 				Fama ħaja essemha "SDF operators" eli heya tkhallina nzidou akthar men object weħed lel scene.<br>
@@ -120,17 +120,17 @@
 					Hedhi el Sphere function:<br>
 				</p>
 				<pre><code><type>float</type> <fn>sdSphere</fn>(<type>vec3</type> p)
- {
+{
 	<keyword>return</keyword> <fn>length</fn>(p) - 1.;
- }</code></pre>
+}</code></pre>
 				<p>
 					Kobr el sphere "1.0" f'hal example.<br>
 					Ken nħebbou n'akhtarou el size, nƐaddiwah comme parameter, kima hak:<br>
 				</p>
 				<pre><code><type>float</type> <fn>sdSphere</fn>(<type>vec3</type> p, <type>float</type> size)
- {
+{
 	<keyword>return</keyword> <fn>length</fn>(p) - size;
- }</code></pre>
+}</code></pre>
 				<p>
 					Tnajjem tenzel Ɛal taswira ken t'ħeb e'testi w tabaddel el code.
 				</p>
@@ -163,12 +163,12 @@
 				Donc bech nħarkou el sphere, yelzem nzidou wela ennaq̈sou values m'el position mtaƐ el ray.
 			</p>
 			<pre><code><type>float</type> <fn>sceneSDF</fn>(<type>vec3</type> p)
- {
+{
 	<comment>// Nħadhrou el offset mteƐna. F'el cas hedha, nzaħlq̈ouha Ɛal Y-axis</comment>
 	<type>vec3</type> offsetPos = <fn>vec3</fn>(0.0, <fn>cos</fn>(iTime), 0.0);
 	p = p + offsetPos;
 	<keyword>return</keyword> <fn>sdSphere</fn>(p);
- }</code></pre>
+}</code></pre>
 			<div class="image-container">
 				<a href="https://www.shadertoy.com/view/X33Gz2" target="_blank" title="Shadertoy link">
 					<img src="./images/rendering_sdf_basics_0021.gif" alt="rendering_sdf_basics_0021">
@@ -182,7 +182,7 @@
 				Donc ennajmou nestaƐmlou texture <a href="./shaders.html" target="_blank">uniform</a>, win naƐtiw l'el shader texture, w baƐd, nestaƐmlou el texture bech nbadlou el shape mtaƐ el sphere. 
 			</p>
 			<pre><code><type>float</type> sceneSDF(<type>vec3</type> p)
- {
+{
 	<comment>// Nzidou texture fel iChannel0, w nsampliwha b' XY mtaƐ position el ray</comment>
 	<type>vec3</type> textureMask = <fn>texture</fn>(iChannel0, p.xy).xyz;
 
@@ -190,7 +190,7 @@
 	textureMask = 1.0 - (textureMask * 0.5);
 
 	<keyword>return</keyword> sdSphere(p * textureMask);
- }</code></pre>
+}</code></pre>
 			<div class="image-container">
 				<a href="https://www.shadertoy.com/view/X333z2" target="_blank" title="Shadertoy link">
 					<img src="./images/rendering_sdf_basics_0022.png" alt="rendering_sdf_basics_0022">
@@ -205,29 +205,29 @@
 				Bech ennajmou ndawrou el objet mteƐna Ɛal X (ħasb angle nƐaddiwah f'el parameter), il suffit ntalƐou el matrix, w nedhrbouha:
 			</p>
 			<pre><code><type>mat3</type> <fn>rotateX</fn>(<type>float</type> a)
- {
+{
 	<type>float</type> sa = <fn>sin</fn>(a);
 	<type>float</type> ca = <fn>cos</fn>(a); 
 	<keyword>return</keyword> <type>mat3</type>(<type>vec3</type>(1., .0, .0), <type>vec3</type>(.0, ca, sa), <type>vec3</type>(.0, -sa, ca));
- }</code></pre>
+}</code></pre>
 			<p>
 				Binnesba l'el Y:
 			</p>
 			<pre><code><type>mat3</type> <fn>rotateY</fn>(<type>float</type> a)
- {
+{
  	<type>float</type> sa = <fn>sin</fn>(a);
  	<type>float</type> ca = <fn>cos</fn>(a); 
  	<keyword>return</keyword> <type>mat3</type>(<type>vec3</type>(ca, .0, sa), <type>vec3</type>(.0, 1., .0), <type>vec3</type>(-sa, .0, ca));
- }</code></pre>
+}</code></pre>
 			<p>
 				Wa akhiiran, el Z:
 			</p>
 			<pre><code><type>mat3</type> <fn>rotateZ</fn>(<type>float</type> a)
- {
+{
  	<type>float</type> sa = <fn>sin</fn>(a);
  	<type>float</type> ca = <fn>cos</fn>(a); 
  	<keyword>return</keyword> <type>mat3</type>(<type>vec3</type>(ca, sa, .0), <type>vec3</type>(-sa, ca, .0), <type>vec3</type>(.0, .0, 1.));
- }</code></pre>
+}</code></pre>
 			<p>
 				Taw njarbou nedhrbou waħda fihom f'el <code>p</code> w nchoufou el resultat:<br>
 			</p>
