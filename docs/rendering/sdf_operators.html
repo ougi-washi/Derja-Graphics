@@ -23,13 +23,38 @@
 		<div class="section">
 			<h2>SDF Operators?</h2>
 			<p>
+				Taw Ɛandna <a href="sdf_primitives.html" target="_blank">primitives </a> snaƐna bihom simple scene, 
+				donc el objective el jéy houwa ano nreddouha complex. El SDF operators ysahloulna el ħkéya hedhi.<br>
+				Operators houma des functions eli n'appliquiwhom Ɛal el SDFs.
 			</p>
 		</div>
 		<div class="section">
 			<h2>Union</h2>
 			<p>
-				
+				"Union" yaƐni 2 SDF objects ywalliw object weħed. 
 			</p>
+			<pre><code><type>float</type> opUnion( <type>float</type> sdf1, <type>float</type> sdf2 )
+{
+    <keyword>return</keyword> <fn>min</fn>(sdf1,sdf2);
+}</code></pre>
+			<p>
+				Deja estaƐmelneha f'el example hedha:
+			</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/lXdGzs" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_primitive_007.gif" alt="rendering_sdf_primitive_007">
+				</a>
+			</div>
+			<pre><code><type>float</type> boxDistance = <fn>sdBox</fn>(boxP, boxExtent);
+<comment>// ...</comment>
+<type>float</type> sphereDistance = <fn>sdSphere</fn>(sphereP, 1.0);
+<comment>// ...</comment>
+<type>float</type> finalDistance = <fn>min</fn>(boxDistance, sphereDistance);</code></pre>
+			<p>
+				Kima tchouf houni nestaƐmlou fi <code><fn>min</fn>(sdf1, sdf2)</code> bech nzidouhom l'nafs el scene.
+			</p>
+			<h2>Smooth Union</h2>
+			<p>Bech n'simplifiw chwayya, nħottou just 2 spheres f'el scene.</p>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
