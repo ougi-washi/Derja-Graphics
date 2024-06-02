@@ -55,6 +55,49 @@
 			</p>
 			<h2>Smooth Union</h2>
 			<p>Bech n'simplifiw chwayya, nħottou just 2 spheres f'el scene.</p>
+			<pre><code><type>vec4</type> <fn>sceneSDF</fn>(<type>vec3</type> p){
+
+	<comment>// Sphere 1</comment>
+	<type>vec3</type> <variable>sphereOneP</variable> = <fn>vec3</fn>(p.x + 0.5, p.y, p.z);
+	<type>float</type> <variable>sphereOneDistance</variable> = <fn>sdSphere</fn>(<variable>sphereOneP</variable>, 0.6);
+	<type>vec3</type> <variable>sphereOneColor</variable> = <fn>vec3</fn>(0.15, 0.19, 0.7);
+
+	<comment>// Sphere 2</comment>
+	<type>vec3</type> <variable>sphereTwoP</variable> = <fn>vec3</fn>(p.x - 0.5, p.y, p.z);
+	<type>float</type> <variable>sphereTwoDistance</variable> = <fn>sdSphere</fn>(<variable>sphereTwoP</variable>, 0.4);
+	<type>vec3</type> <variable>sphereTwoColor</variable> = <fn>vec3</fn>(0.6, 0.1, 0.1);
+
+	<type>float</type> <variable>finalDistance</variable> = <fn>min</fn>(<variable>sphereOneDistance</variable>, <variable>sphereTwoDistance</variable>);
+	<type>vec3</type> <variable>finalColor</variable> = <fn>vec3</fn>(0.0);
+
+	<variable>finalColor</variable> = <fn>vec3</fn>(0.0);
+	<keyword>if</keyword>(<variable>sphereOneDistance</variable> < <variable>sphereTwoDistance</variable>){
+		<variable>finalColor</variable> = <variable>sphereOneColor</variable>;  
+	}
+	<keyword>else</keyword> {
+		<variable>finalColor</variable> = <variable>sphereTwoColor</variable>;
+	}
+	
+	<keyword>return</keyword> <fn>vec4</fn>(<variable>finalColor</variable>, <variable>finalDistance</variable>);
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/lXKGR1" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_operators_001.png" alt="rendering_sdf_operators_001">
+				</a>
+			</div>
+			<p>
+				Taw nħebbou n'ħottouhom yodkhlou fi bƐadh'hom donc nestaƐmlou "Smooth Union" fi Ɛoudh "Union" Ɛadiyya.<br>
+				Note: <code><fn>min</fn>()</code> w <code><fn>union</fn>()</code> houma nafs el ħaja.
+			</p>
+			<pre><code><type>float</type> <fn>opSmoothUnion</fn>(<type>float</type> d1, <type>float</type> d2, <type>float</type> k){
+	<type>float</type> h = <fn>clamp</fn>(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0);
+	<keyword>return</keyword> <fn>mix</fn>(d2, d1, h) - k * h * (1.0 - h);
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/XXGGzD" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_operators_002.gif" alt="rendering_sdf_operators_002">
+				</a>
+			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
