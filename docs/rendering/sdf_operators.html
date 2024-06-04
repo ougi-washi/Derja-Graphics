@@ -173,7 +173,36 @@
 					<img src="./images/rendering_sdf_operators_005.gif" alt="rendering_sdf_operators_005">
 				</a>
 			</div>
-		</div>		
+		</div>	
+		<div class="section">
+			<h2>Repetition</h2>
+			<p>
+				Akthar ħaja tjini interressante f'el SDF, eli heya le fait que tnajjem t'rendri barcha ħweyij bléch!<br>
+				Ih nƐam, matest'ħaq̈ech GPU aq̈wa bech t'rendri 50000 sphere!
+				Famma SDF functions yħottouna n'rendriw object wela el scene kemla barcha marrat. 
+				El technique hedhi heya Ɛibara Ɛla tiling l'el coordinates, win nƐawdou el scene barcha marrat mangheir manƐawdou neħsbou kolchay.
+			</p>
+			<p>
+				Hedha el code el generic implementation:
+			</p>
+			<pre><code><type>float</type> <fn>opRepetition</fn>(<type>vec3</type> p, <type>vec3</type> s, <type>sdf3d</type> <fn>primitive</fn>)
+{
+	<type>vec3</type> q = p - s * round(p / s);
+	<keyword>return</keyword> <fn>primitive</fn>(q);
+}</code></pre>
+			<p>
+				Binnesba l'el cas mteƐna, hedhi function l'el sphere eli nħebouha tetƐawéd:
+			</p>
+			<pre><code><type>float</type> <fn>sdRepeatedSphere</fn>(<type>vec3</type> p, <type>float</type> size, <type>float</type> repitition){
+	<type>vec3</type> q = p - repitition * round(p / repitition);
+	<keyword>return</keyword> <fn>length</fn>(q) - size;
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/43K3DR" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_operators_006.png" alt="rendering_sdf_operators_006">
+				</a>
+			</div>
+		</div>	
 		<div class="section">
 			<h2>Fin.</h2>
 			<p>
