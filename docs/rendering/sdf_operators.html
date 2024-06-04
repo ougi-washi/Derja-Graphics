@@ -98,6 +98,38 @@
 					<img src="./images/rendering_sdf_operators_002.gif" alt="rendering_sdf_operators_002">
 				</a>
 			</div>
+			<p>
+				Taw s'ħiih el balls yodkhlou fi bƐadh'hom, ama el alwén mq̈asmiin.
+				Fel cas mteƐna n'settiw el color ħasb el distance 
+			</p>
+			<pre><code><keyword>if</keyword>(<variable>sphereOneDistance</variable> < <variable>sphereTwoDistance</variable>){
+	<variable>finalColor</variable> = <variable>sphereOneColor</variable>;  
+}
+<keyword>else</keyword> {
+	<variable>finalColor</variable> = <variable>sphereTwoColor</variable>;
+}</code></pre>			
+		<p>
+			Ennajmou nestaƐmlou zeda el <code><fn>step</fn>(edge, x)</code> bech naƐrfou win touq̈ef el value.
+		</p>
+		<pre><code><variable>finalColor</variable> = <fn>step</fn>(<variable>sphereOneDistance</variable>, <variable>sphereTwoDistance</variable>) * <fn>vec3</fn>(<variable>sphereOneColor</variable>);    
+<variable>finalColor</variable> += <fn>step</fn>(<variable>sphereTwoDistance</variable>, <variable>sphereOneDistance</variable>) * <fn>vec3</fn>(<variable>sphereTwoColor</variable>);
+</code></pre>
+		<p>
+			Taw ken nħebbou n'mixiw el coleurét eli binet'ħom, nestaƐmlou <code><fn>smoothstep</fn>(edge0, edge1, x)</code>.
+		</p>
+		<pre><code><type>float</type> <variable>smoothness</variable> = <fn>abs</fn>(<fn>sin</fn>(<variable>iTime</variable>));
+				
+<type>float</type> <variable>smoothDistance</variable> = <fn>opSmoothUnion</fn>(<variable>sphereOneDistance</variable>, <variable>sphereTwoDistance</variable>, <variable>smoothness</variable>);
+	
+<comment>// Blend colors ħasb el smoothness</comment>
+<type>float</type> <variable>smoothnessMask</variable> = <fn>smoothstep</fn>(-<variable>smoothness</variable>, <variable>smoothness</variable>, <variable>sphereOneDistance</variable> - <variable>sphereTwoDistance</variable>);
+	
+<type>vec3</type> <variable>finalColor</variable> = <fn>mix</fn>(<variable>sphereOneColor</variable>, <variable>sphereTwoColor</variable>, <variable>smoothnessMask</variable>);</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/43V3zw" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_operators_003.gif" alt="rendering_sdf_operators_003">
+				</a>
+			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
