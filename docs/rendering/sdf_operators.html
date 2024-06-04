@@ -25,7 +25,8 @@
 			<p>
 				Taw Ɛandna <a href="sdf_primitives.html" target="_blank">primitives </a> snaƐna bihom simple scene, 
 				donc el objective el jéy houwa ano nreddouha complex. El SDF operators ysahloulna el ħkéya hedhi.<br>
-				Operators houma des functions eli n'appliquiwhom Ɛal el SDFs.
+				El operators houma functions n'appliquew'hom Ɛal SDFs.<br>
+				(Bech nfasrou quelques SDFs w naƐmlou examples m'el <a href="https://iquilezles.org/articles/distfunctions/" target="_blank">lista hedhi</a>)
 			</p>
 		</div>
 		<div class="section">
@@ -123,7 +124,6 @@
 	
 <comment>// Blend colors ħasb el smoothness</comment>
 <type>float</type> <variable>smoothnessMask</variable> = <fn>smoothstep</fn>(-<variable>smoothness</variable>, <variable>smoothness</variable>, <variable>sphereOneDistance</variable> - <variable>sphereTwoDistance</variable>);
-	
 <type>vec3</type> <variable>finalColor</variable> = <fn>mix</fn>(<variable>sphereOneColor</variable>, <variable>sphereTwoColor</variable>, <variable>smoothnessMask</variable>);</code></pre>
 			<div class="image-container">
 				<a href="https://www.shadertoy.com/view/43V3zw" target="_blank" title="Shadertoy link">
@@ -131,6 +131,49 @@
 				</a>
 			</div>
 		</div>
+		<div class="section">
+			<h2>Substraction</h2>
+			<p>
+				Kima famma Union, famma Substraction (tetsamma zeda "bool/boolean").
+				Hedhi tkhallina ennaħħiw tarf m'el object ħasb object ekher.
+			</p>
+			<pre><code><type>float</type> <fn>opSubtraction</fn>(<type>float</type> d1, <type>float</type> d2){
+	<keyword>return</keyword> <fn>max</fn>(-d1, d2);
+}</code></pre>
+			<p>W hedha el code mtaƐ el SDF scene eli yestaƐmel el substraction:</p>
+			<pre><code><type>vec4</type> <fn>sceneSDF</fn>(<type>vec3</type> p){
+	<comment>// Sphere 1</comment>
+	<type>vec3</type> sphereOneP = <type>vec3</type>(p);
+	<type>float</type> sphereOneDistance = <fn>sdSphere</fn>(sphereOneP, .6);
+	<type>vec3</type> sphereOneColor = <type>vec3</type>(0.15, 0.19, 0.7);
+			
+	<comment>// Sphere 2</comment>
+	<type>vec3</type> sphereTwoP = <type>vec3</type>(p.x + .5, p.y, p.z - .5);
+	<type>float</type> sphereTwoDistance = <fn>sdSphere</fn>(sphereTwoP, .5);
+					
+	<type>float</type> finalDistance = <fn>opSubtraction</fn>(sphereTwoDistance, sphereOneDistance);
+					
+	<keyword>return</keyword> <type>vec4</type>(sphereOneColor, finalDistance);
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/MXGGDz" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_operators_004.png" alt="rendering_sdf_operators_004">
+				</a>
+			</div>
+			<p>
+				W bien sûr kif kif, Ɛand'ha el smooth version mteƐha! 
+			</p>
+			<pre><code><type>float</type> </fn>opSmoothSubtraction</fn>(<type>float</type> d1, <type>float</type> d2, <type>float</type> k)
+{
+    <type>float</type> h = <fn>clamp</fn>(0.5 - 0.5 * (d2 + d1) / k, 0.0, 1.0);
+    <keyword>return</keyword> <fn>mix</fn>(d2, -d1, h) + k * h * (1.0 - h);
+}</pre></code>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/XXVGDR" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_sdf_operators_005.gif" alt="rendering_sdf_operators_005">
+				</a>
+			</div>
+		</div>		
 		<div class="section">
 			<h2>Fin.</h2>
 			<p>
