@@ -202,6 +202,14 @@
 					<img src="./images/rendering_sdf_operators_006.png" alt="rendering_sdf_operators_006">
 				</a>
 			</div>
+			<p>
+				Famma zeda limited repitition bech nakhtarou q̈adeh bedhabt nħebbou n'Ɛawdou el object w wiin.
+			</p>
+			<pre><code><type>vec3</type> <fn>opLimitedRepetition</fn>(<type>vec3</type> p, <type>float</type> s, <type>vec3</type> l, <type>sdf3d</type> <fn>primitive</fn>)
+{
+	<type>vec3</type> q = p - s * <fn>clamp</fn>(<fn>round</fn>(p / s), -l, l);
+	<keyword>return</keyword> <fn>primitive</fn>(q);
+}</code></pre>
 		</div>	
 		<div class="section">
 			<h2>Fin.</h2>
