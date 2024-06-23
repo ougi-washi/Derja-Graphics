@@ -42,13 +42,45 @@
 			</div>
 			<p>
 				PS: El scene hedhi kh'dhinéha men Ɛand <a href="https://www.shadertoy.com/user/Xor" target="_blank">Xor</a>, 
-				weħed mƐallam. Donc el scene kemla ygeddha fi 4 stour.
+				weħed mƐallam.
 			</p>
 		</div>
 		<div class="section">
 			<h2>2. Colors</h2>
+			<h3>a. Color Correction</h3>
 			<p>
+				El color correction, ħaja commune barcha f'el post processing bech t'ħassen f'el final image.<br>
+				Ken staƐmelt photoshop q̈bal, surement taƐraf el terms hedhom:<br>
+				- <a href="https://en.wikipedia.org/wiki/Brightness" target="_blank">Brightness</a> (Q̈adech dhawya l'image)<br>
+				- <a href="https://en.wikipedia.org/wiki/Contrast_(vision)" target="_blank">Contrast</a> (El farq̈ bin l'abyedh w l'akħal)<br>
+				- <a href="https://en.wikipedia.org/wiki/Colorfulness" target="_blank">Saturation</a> (L'intensity mteƐ el couleur)<br>
+				Kol waħda fihom Ɛand'ha function nestaƐmlouha w nbadlou el parameters bech nkharjou el visuals eli nħebbou Ɛlihom.
 			</p>
+			<h3>b. Brightness</h3>
+			<p>
+				Kima q̈olna, el brightness tkhallina n'controlliw q̈addeh el taswira dhawya.<br>
+				Heyya l'implementation mteƐha sehla barcha: 
+			</p>
+			<pre><code>Color = Color + Brightness;</code></pre>
+			<p>
+				Ama ennajmou netƐalmou ħaja jdid houn, Matrices!<br>
+				NasnƐou brightness matrix w nadhrbouha f'el couleur, taƐtina nafs el resultat.
+			</p>
+			<pre><code><type>mat4</type> <fn>getBrightnessMatrix</fn>( <type>float</type> brightness )
+{
+	<keyword>return</keyword> <type>mat4</type>( 1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+	brightness, brightness, brightness, 1 );
+}</code></pre>
+			<p>W baƐd, nedhrbouha f'el <code>Color</code></p>
+<pre><code><variable>fragColor</variable> = <fn>getBrightnessMatrix</fn>( <variable>brightness</variable> ) * <variable>fragColor</variable>;</code></pre>
+			<p>Enzel Ɛal taswira, jarrab el code w baddel el brightness value ken t'ħeb.</p>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M33SWM" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_postprocessing_002.png" alt="rendering_postprocessing_002">
+				</a>
+			</div>
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
