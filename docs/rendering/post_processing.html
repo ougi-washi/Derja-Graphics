@@ -30,7 +30,7 @@
 			</p>
 		</div>
 		<div class="section">
-			<h2>1. Préparation</h2>
+			<h2>1. Preparation</h2>
 			<p>
 				Nħadhrou scene w n'rendriwha Ɛla texture buffer bech n'appliquiw Ɛliha el post processing.<br>
 				F'el cas mteƐna hedha, bech n'rendriw scene Ɛal "Buffer A" w baƐd f'el final image, n'sampliwha b'el function <code><fn>texture</fn>(tex, uv)</code>.
@@ -47,7 +47,7 @@
 		</div>
 		<div class="section">
 			<h2>2. Colors</h2>
-			<h3>a. Color Correction</h3>
+			<h3>A. Color Correction</h3>
 			<p>
 				El color correction, ħaja commune barcha f'el post processing bech t'ħassen f'el final image.<br>
 				Ken staƐmelt photoshop q̈bal, surement taƐraf el terms hedhom:<br>
@@ -56,12 +56,12 @@
 				- <a href="https://en.wikipedia.org/wiki/Colorfulness" target="_blank">Saturation</a> (L'intensity mteƐ el couleur)<br>
 				Kol waħda fihom Ɛand'ha function nestaƐmlouha w nbadlou el parameters bech nkharjou el visuals eli nħebbou Ɛlihom.
 			</p>
-			<h3>b. Brightness</h3>
+			<h3>B. Brightness</h3>
 			<p>
 				Kima q̈olna, el brightness tkhallina n'controlliw q̈addeh el taswira dhawya.<br>
 				Heyya l'implementation mteƐha sehla barcha: 
 			</p>
-			<pre><code>Color = Color + Brightness;</code></pre>
+			<pre><code>fragColor = fragColor + Brightness;</code></pre>
 			<p>
 				Ama ennajmou netƐalmou ħaja jdid houn, Matrices!<br>
 				NasnƐou brightness matrix w nadhrbouha f'el couleur, taƐtina nafs el resultat.
@@ -79,6 +79,48 @@
 			<div class="image-container">
 				<a href="https://www.shadertoy.com/view/M33SWM" target="_blank" title="Shadertoy link">
 					<img src="./images/rendering_postprocessing_002.png" alt="rendering_postprocessing_002">
+				</a>
+			</div>
+			<h3>C. Contrast</h3>
+			<p>El contrast tkhallina n'controlliw q̈adeh famma gris f'el render.</p>
+			<pre><code><type>mat4</type> <fn>getContrastMatrix</fn>( <type>float</type> contrast )
+{
+	<type>float</type> t = ( 1.0 - contrast ) / 2.0;
+	<keyword>return</keyword> <fn>mat4</fn>( contrast, 0, 0, 0,
+			0, contrast, 0, 0,
+			0, 0, contrast, 0,
+			t, t, t, 1 );
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/MXcSWM" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_postprocessing_003.png" alt="rendering_postprocessing_003">
+				</a>
+			</div>
+			<h3>D. Saturation</h3>
+			<p>El contrast tkhallina n'controlliw l'intensity mteƐ el couleur, w bech nestaƐmlou matrix zeda.</p>
+			<pre><code><type>mat4</type> <fn>getSaturationMatrix</fn>( <type>float</type> saturation )
+{
+	<type>vec3</type> <variable>luminance</variable> = <fn>vec3</fn>( 0.3086, 0.6094, 0.0820 );
+	
+	<type>float</type> <variable>oneMinusSat</variable> = 1.0 - saturation;
+	
+	<type>vec3</type> <variable>red</variable> = <fn>vec3</fn>( <variable>luminance</variable>.x * <variable>oneMinusSat</variable> );
+	<variable>red</variable> += <fn>vec3</fn>( saturation, 0, 0 );
+	
+	<type>vec3</type> <variable>green</variable> = <fn>vec3</fn>( <variable>luminance</variable>.y * <variable>oneMinusSat</variable> );
+	<variable>green</variable> += <fn>vec3</fn>( 0, saturation, 0 );
+	
+	<type>vec3</type> <variable>blue</variable> = <fn>vec3</fn>( <variable>luminance</variable>.z * <variable>oneMinusSat</variable> );
+	<variable>blue</variable> += <fn>vec3</fn>( 0, 0, saturation );
+	
+	<keyword>return</keyword> <fn>mat4</fn>(	<variable>red</variable>, 0,
+			<variable>green</variable>, 0,
+			<variable>blue</variable>, 0,
+			0, 0, 0, 1 );
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M3yXzR" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_postprocessing_004.png" alt="rendering_postprocessing_004">
 				</a>
 			</div>
 		</div>
