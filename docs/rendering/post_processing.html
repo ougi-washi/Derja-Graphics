@@ -126,7 +126,66 @@
 		</div>
 		<div class="section">
 			<h2>Edge Detection</h2>
-
+			<p>
+				El edge detection heyya ħaja yecer mostaƐmla l'el visual effects. Famma barcha methods bech naƐmlou edge detection.<br>
+				- <a href="https://en.wikipedia.org/wiki/Sobel_operator" target="_blank">Sobel Filter</a><br>
+				- <a href="https://en.wikipedia.org/wiki/Canny_edge_detector" target="_blank">Canny Edge Detector</a><br>
+				- <a href="https://en.wikipedia.org/wiki/Difference_of_Gaussians" target="_blank">Difference of Gaussians</a><br>
+				- etc...
+			</p>
+			<p>
+				El youm, bech manƐaq̈douhech, njarbou n'appliquiw el Sobel edge detection Ɛal render mteƐna. Yomken njarbou el béq̈iyya nhar ekher.<br>
+				Sobel operator howa simple algorithm, yestaƐmel UV offsetting bech ykharrej el edges.
+				Kol marra n'sampliw el texture b'offset w nedhrbouha f'el Sobel kernels "<code>sobelX</code>" w "<code>sobelY</code>". 
+				F'el lekher, nejm3ou el kol fi "<code>g</code>" w n'compariw el valeur b' threshold "<code>amount</code>".<br>
+				Hedha el code eli kharrejnéh m'el formule:
+			</p>
+			<pre><code><type>vec3</type> <fn>getSobelEdge</fn>(<type>sampler2D</type> sceneTexture, <type>vec2</type> fragCoord, <type>vec3</type> edgeColor, <type>float</type> amount)
+{
+	<type>mat3</type> sobelX = <fn>mat3</fn>(-1.0, -2.0, -1.0,
+			0.0,  0.0, 0.0,
+			1.0,  2.0,  1.0);
+	<type>mat3</type> sobelY = <fn>mat3</fn>(-1.0,  0.0,  1.0,
+			-2.0,  0.0, 2.0,
+			-1.0,  0.0,  1.0);  
+	
+	<type>float</type> sumX = 0.0;
+	<type>float</type> sumY = 0.0;
+	
+	<keyword>for</keyword>(<type>int</type> i = -1; i <= 1; i++)
+	{
+		<keyword>for</keyword>(<type>int</type> j = -1; j <= 1; j++)
+		{
+			<type>float</type> x = (fragCoord.x + <fn>float</fn>(i))/iResolution.x;	
+			<type>float</type> y =  (fragCoord.y + <fn>float</fn>(j))/iResolution.y;
+			
+			sumX += <fn>length</fn>(<fn>texture</fn>( sceneTexture, <fn>vec2</fn>(x, y) ).xyz) * <fn>float</fn>(sobelX[1+i][1+j]);
+			sumY += <fn>length</fn>(<fn>texture</fn>( sceneTexture, <fn>vec2</fn>(x, y) ).xyz) * <fn>float</fn>(sobelY[1+i][1+j]);
+		}
+	}
+	
+	<type>float</type> g = <fn>abs</fn>(sumX) + <fn>abs</fn>(sumY);
+	
+	<keyword>if</keyword>(g > amount) {
+		<keyword>return</keyword> edgeColor;
+	}
+	<keyword>return</keyword> <fn>vec3</fn>(0.);
+}</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M3VSzR" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_postprocessing_005.png" alt="rendering_postprocessing_005">
+				</a>
+			</div>
+			<p>
+				Taw nzidou el scene mteƐna, w nestaƐmlou el edge mask (par example <code>edgeColor.x</code> value) bech nghamq̈ou el couleur f'el edges.
+			</p>
+			<pre><code><type>vec3</type> <variable>edgeColor</variable> = <fn>getSobelEdge</fn>(iChannel0, fragCoord, <fn>vec3</fn>(1.), .25);
+<variable>fragColor</variable> = <fn>mix</fn>(<variable>fragColor</variable>, <variable>fragColor</variable> * .5, <variable>edgeColor</variable>.x);</code></pre>
+			<div class="image-container">
+				<a href="https://www.shadertoy.com/view/M3KSzz" target="_blank" title="Shadertoy link">
+					<img src="./images/rendering_postprocessing_006.png" alt="rendering_postprocessing_006">
+				</a>
+			</div>	
 		</div>
 		<div class="section">
 			<h2>Fin.</h2>
