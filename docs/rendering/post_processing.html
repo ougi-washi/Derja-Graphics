@@ -190,7 +190,31 @@
 		<div class="section">
 			<h2>Fin.</h2>
 			<p>
+				Fama barcha effects ennajmou naƐmlouhom, example: ennajmou nkharjou el light mask men render:
 			</p>
+			<pre><code><type>float</type> <variable>lightGrayscale</variable> = <fn>step</fn>(1., <fn>max</fn>(<fn>max</fn>(baseSceneColor.x, baseSceneColor.y), baseSceneColor.z));</code></pre>
+			<div class="image-container">
+				<img src="./images/rendering_postprocessing_007.png" alt="rendering_postprocessing_007">
+			</div>	
+			<p>
+				Nzidouhom el edge mask:
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_postprocessing_008.png" alt="rendering_postprocessing_008">
+			</div>
+			<p>
+				Nedhrbouhom fi shine yetlaƐ m'el louta:
+			</p>
+			<pre><code><type>float</type> <variable>diagonalLineMask</variable> = <fn>smoothstep</fn>(<variable>lineSize</variable>, 0.0, <fn>abs</fn>((1. - <variable>uv</variable>.y - <variable>uv</variable>.x) - <fn>fract</fn>(- <variable>lineSpeed</variable> * <variable>iTime</variable>) * 4. + 1.));</code></pre>
+			<div class="image-container">
+				<img src="./images/rendering_postprocessing_009.gif" alt="rendering_postprocessing_009">
+			</div>
+			<p>
+				Nzidouh l'el scene mteƐna (enzel Ɛal taswira w jarrab):
+			</p>
+			<div class="image-container">
+				<img src="./images/rendering_postprocessing_010.gif" alt="rendering_postprocessing_010">
+			</div>
 		</div>
 		<div>
 			<p>
